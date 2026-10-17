@@ -1,0 +1,1 @@
+.stage{height:145px;position:relative;overflow:hidden;pointer-events:none;perspective:220px;mask-image:linear-gradient(transparent,#000 95%);opacity:.24}.floor{position:absolute;left:-50%;width:200%;height:400px;top:-80px;background:repeating-conic-gradient(var(--pink) 0% 25%,var(--blue) 0% 50%) 0 0/110px 110px;transform:rotateX(58deg);transform-origin:center center}
