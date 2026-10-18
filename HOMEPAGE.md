@@ -21,6 +21,7 @@ Open the local URL Vite prints. `npm run build` checks TypeScript and creates th
 - Game titles, artwork paths, player labels, availability, and mode: `src/games/registry.ts`.
 - Local vector illustrations: `public/art/`.
 - Hero composition: `src/app/App.module.css`.
+- Large-screen sizing: the `min-width: 1100px` / `min-height: 850px` media queries in the component CSS Modules grow the composition with the available viewport height. Smaller laptops retain the compact arrangement. `--ball-size` in `tokens.css` keeps the sphere and hero stage aligned.
 - Ball pattern and movement: `src/components/DiscoBall/DiscoBall.module.css`. The layer moves 120px, exactly five 24px pattern repeats, so the loop returns to the same pattern. The clipped circle and shading stay stationary.
 - Sparkle placement and stagger: `src/components/Sparkles/Sparkles.module.css`.
 - Light-dot rotation and fading: `src/components/LightReflections/LightReflections.module.css`.
