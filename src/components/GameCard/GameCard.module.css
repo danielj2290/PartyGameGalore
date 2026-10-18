@@ -12,3 +12,6 @@
   .content button{min-height:clamp(44px,4.7svh,64px);font-size:clamp(14px,1.4svh,20px)}
   .status{font-size:clamp(10px,1svh,14px);margin-top:10px}
 }
+
+.content button:enabled{cursor:pointer;transition:transform .2s}
+.content button:enabled:hover{transform:translateY(-2px)}

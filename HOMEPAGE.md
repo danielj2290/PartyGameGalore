@@ -11,9 +11,9 @@ Open the local URL Vite prints. `npm run build` checks TypeScript and creates th
 
 ## How the React pieces fit together
 
-`src/main.tsx` mounts `App`. `src/app/App.tsx` composes the hero, game grid, footer, and decorative components. JSX describes what appears on the page; imported CSS Module classes style only their component.
+`src/main.tsx` mounts `App`. `src/app/App.tsx` defines the routes, while `src/app/Home.tsx` composes the hero, game grid, footer, and decorative components. JSX describes what appears on the page; imported CSS Module classes style only their component.
 
-`src/games/registry.ts` defines the `Game` TypeScript interface and the card data. `GameGrid` maps that array to `GameCard` components, using each game's stable ID as its React key. Each card receives its metadata through props. Availability controls the visible status; every Play button is intentionally disabled for this homepage milestone. Future game rules and networking can be built separately.
+`src/games/registry.ts` defines the `Game` TypeScript interface and the card data. `GameGrid` maps that array to `GameCard` components, using each game's stable ID as its React key. Each card receives its metadata through props. Availability controls the visible status and whether Play is enabled. Charades opens its local rules screen; future game buttons remain disabled.
 
 ## Customize
 
@@ -28,4 +28,4 @@ Open the local URL Vite prints. `npm run build` checks TypeScript and creates th
 
 The decorative animations use transforms and opacity. The global reduced-motion media query stops all animation and transitions. Cards are keyboard-focusable for an equivalent focus treatment; disabled native buttons are intentionally skipped in the tab sequence. Decorative SVGs and layers are hidden from screen readers. The web fonts use Google Fonts with local serif/sans-serif fallbacks when unavailable.
 
-There is no router, gameplay, server, or networking in this milestone.
+Charades is now implemented locally in `src/games/charades/`. Hash-based routes support static hosting without server rewrite configuration. There is no backend or networking.

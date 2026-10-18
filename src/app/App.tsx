@@ -1,7 +1,32 @@
-import { DiscoBall } from '../components/DiscoBall/DiscoBall';
-import { Sparkles } from '../components/Sparkles/Sparkles';
-import { LightReflections } from '../components/LightReflections/LightReflections';
-import { GameGrid } from '../components/GameGrid/GameGrid';
-import { DanceFloor } from '../components/DanceFloor/DanceFloor';
-import styles from './App.module.css';
-export default function App(){return <div className={styles.page}><LightReflections/><header className={styles.header}><a className={styles.brand} href="#home" aria-label="Party Games Galore home"><span aria-hidden="true">✳</span> PGG<span className={styles.brandDot}>.</span></a><span className={styles.tag}><i/> GOOD TIMES AHEAD</span></header><main id="home"><section className={styles.hero} aria-labelledby="title"><div className={styles.ballStage}><DiscoBall/><Sparkles/></div><h1 id="title">Party Games <span>Galore<span className={styles.titleStar} aria-hidden="true">✦</span></span></h1></section><GameGrid/></main><footer className={styles.footer}><p>Your favorite people. A little friendly competition.<br/>Everything you need for a really good night.</p></footer><DanceFloor/></div>}
+import { useEffect } from 'react';
+import { HashRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import Home from './Home';
+import { CharadesProvider } from '../games/charades/CharadesContext';
+import { CharadesLayout } from '../games/charades/CharadesLayout';
+import { Rules } from '../games/charades/Rules';
+import { Settings } from '../games/charades/Settings';
+import { Play } from '../games/charades/Play';
+import { Results } from '../games/charades/Results';
+function RouteEffects() {
+  const location = useLocation();
+  useEffect(() => {
+    if (location.pathname === '/') {
+      document.title = 'Party Games Galore';
+      window.scrollTo(0, 0);
+    }
+  }, [location.pathname]);
+  return null;
+}
+export default function App() {
+  return <HashRouter><CharadesProvider><RouteEffects /><Routes>
+    <Route path="/" element={<Home />} />
+    <Route path="/charades" element={<CharadesLayout />}>
+      <Route index element={<Navigate to="rules" replace />} />
+      <Route path="rules" element={<Rules />} />
+      <Route path="settings" element={<Settings />} />
+      <Route path="play" element={<Play />} />
+      <Route path="results" element={<Results />} />
+    </Route>
+    <Route path="*" element={<Navigate to="/" replace />} />
+  </Routes></CharadesProvider></HashRouter>;
+}
