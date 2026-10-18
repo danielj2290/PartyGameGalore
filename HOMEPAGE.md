@@ -13,7 +13,7 @@ Open the local URL Vite prints. `npm run build` checks TypeScript and creates th
 
 `src/main.tsx` mounts `App`. `src/app/App.tsx` defines the routes, while `src/app/Home.tsx` composes the hero, game grid, footer, and decorative components. JSX describes what appears on the page; imported CSS Module classes style only their component.
 
-`src/games/registry.ts` defines the `Game` TypeScript interface and the card data. `GameGrid` maps that array to `GameCard` components, using each game's stable ID as its React key. Each card receives its metadata through props. Availability controls the visible status and whether Play is enabled. Charades opens its rules screen and Heads Up opens device setup; the remaining future game stays disabled.
+`src/games/registry.ts` defines the `Game` TypeScript interface and the card data. `GameGrid` maps that array to `GameCard` components, using each game's stable ID as its React key. Each card receives its metadata through props. Availability controls the visible status and whether Play is enabled. All three games are enabled: Charades and Wavelength open their rules screens; Heads Up opens device setup.
 
 ## Customize
 
@@ -28,4 +28,4 @@ Open the local URL Vite prints. `npm run build` checks TypeScript and creates th
 
 The decorative animations use transforms and opacity. The global reduced-motion media query stops all animation and transitions. Cards are keyboard-focusable for an equivalent focus treatment; disabled native buttons are intentionally skipped in the tab sequence. Decorative SVGs and layers are hidden from screen readers. The web fonts use Google Fonts with local serif/sans-serif fallbacks when unavailable.
 
-Charades and Heads Up run locally in their own directories under `src/games/`. Hash-based routes support static hosting without server rewrite configuration. There is no backend or networking.
+Charades, Heads Up, and Wavelength run locally in their own directories under `src/games/`. Hash-based routes support static hosting without server rewrite configuration. There is no backend or networking.

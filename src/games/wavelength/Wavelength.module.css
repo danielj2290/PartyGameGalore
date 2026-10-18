@@ -1,0 +1,63 @@
+.page{--team:var(--pink);min-height:100svh;position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;background:var(--background)}
+.header{width:min(1400px,92%);margin:auto;min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:relative;z-index:1}
+.brand{font-size:25px;font-weight:700;letter-spacing:-1px;text-decoration:none}.brand>span{color:var(--pink);font-size:30px;vertical-align:middle;margin-right:8px}
+.headerLabel{color:var(--pink);font-size:10px;letter-spacing:1.7px}.headerLabel>span{color:var(--muted)}
+.textLink,.textButton{font-size:12px;color:var(--muted);text-decoration:none}.textButton{border:0;background:none;min-height:44px;padding:10px 6px;cursor:pointer}
+.textButton:hover,.textLink:hover{color:var(--text)}
+.main{width:min(1100px,90%);margin:auto;padding:30px 0;flex:1;position:relative;z-index:1;min-width:0}
+.footer{padding:22px 16px;text-align:center;color:var(--muted);font-size:9px;letter-spacing:2px}.footer>span{color:var(--pink);margin-left:8px}
+.intro{max-width:960px;margin:auto;text-align:center}.eyebrow{font-size:10px;font-weight:700;letter-spacing:2px;color:var(--team);line-height:1.6;margin:0 0 12px}
+.main h1{font:italic 500 clamp(40px,5vw,68px)/1.12 var(--heading);letter-spacing:-2px;margin:0;text-wrap:balance}.main h1 em{color:var(--pink);font-weight:inherit}
+.lede{font-size:14px;line-height:1.8;color:var(--muted);margin:18px 0 28px}
+.actions{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;margin-top:24px}
+.primary,.secondary,.smallButton{font:600 14px var(--body);display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:48px;padding:12px 22px;border:1px solid transparent;border-radius:8px;text-decoration:none;cursor:pointer;transition:transform .2s,background .2s}
+.primary{background:var(--team);color:#26202e}.secondary{color:var(--text);background:#ffffff05;border-color:#ffffff35}
+.primary:enabled:hover,.secondary:enabled:hover{transform:translateY(-2px)}.primary:disabled{opacity:.4;cursor:not-allowed}
+.rulesGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:32px 0;text-align:left}
+.rule{display:flex;gap:18px;background:var(--card);border:1px solid #ffffff15;border-radius:14px;padding:24px}.ruleNumber{font:italic 27px var(--heading);color:var(--pink)}
+.rule h2,.rulesNote h2{font-size:16px;margin:2px 0 10px;font-weight:600}.rule p,.rulesNote p{color:var(--muted);font-size:13px;line-height:1.8;margin:0}
+.rulesNote{border:1px solid #f7a1e330;border-radius:14px;padding:22px;text-align:left;background:#f7a1e305}.rulesNote p+p{margin-top:10px}
+.sourceNote{font-size:10px;color:var(--muted);line-height:1.8;margin:24px 0 0}.sourceNote a{color:var(--pink);text-underline-offset:3px}
+.settingsPanel{padding:30px;background:var(--card);border:1px solid #ffffff15;border-radius:18px;text-align:left;margin-top:30px}
+.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:26px}.field{font-size:14px;font-weight:600;display:flex;flex-direction:column;gap:10px;min-width:0}
+.field select,.field input{font:400 14px var(--body);background:var(--background);color:var(--text);border:1px solid #ffffff35;border-radius:8px;min-height:48px;padding:12px;width:100%;color-scheme:dark}
+.field>span{font-size:11px;font-weight:400;color:var(--muted);line-height:1.7}.field input::placeholder{color:#aaa3b3}
+.field select:focus-visible,.field input:focus-visible{outline:3px solid var(--team);outline-offset:4px}
+.settingsSummary{display:flex;flex-direction:column;gap:8px;background:#ffffff04;border-radius:10px;margin-top:28px;padding:20px;text-align:center;font-size:12px;color:var(--muted);line-height:1.7}.settingsSummary strong{color:var(--pink);font-size:15px}
+.playScreen{max-width:1000px;margin:auto}.playHeading{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:20px}.playHeading h1{font-size:clamp(29px,3.8vw,45px)}.playHeading .eyebrow{margin-bottom:8px}
+.timerPanel{flex-shrink:0;text-align:right}.timer{font-weight:700;font-size:25px;font-variant-numeric:tabular-nums;line-height:1.2}.urgent{color:var(--pink)}.timerControls{display:flex;gap:8px;margin-top:6px}.smallButton{font-size:11px;min-height:40px;padding:8px 11px;color:var(--text);background:#ffffff08;border-color:#ffffff30}
+.gameCard{border:2px solid var(--team);border-radius:20px;padding:20px 28px;background:radial-gradient(ellipse at 50% 0,#ffffff05,transparent 65%),var(--card);box-shadow:0 10px 40px #14141a35;text-align:center;min-width:0}
+.privateCard{background:radial-gradient(ellipse at 50% 0,#f7a1e30a,transparent 65%),var(--card)}.cardKicker{color:var(--team);font-size:9px;font-weight:700;letter-spacing:1.8px;line-height:1.6;margin:0 0 14px}
+.readyContent{min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px 0}.readyStar{font-size:40px;color:var(--team)}.readyContent>span{color:var(--team)}
+.readyContent h2{font:italic 500 clamp(27px,3vw,37px)/1.2 var(--heading);margin:0}.readyContent p{color:var(--muted);font-size:13px;line-height:1.8;margin:0;max-width:460px}.readyContent>.primary{margin-top:4px}
+.dial{width:min(100%,630px);margin:auto}.dial svg{width:100%;height:auto;display:block;overflow:visible;user-select:none}.interactiveDial{touch-action:none;cursor:crosshair}
+.endpoints{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:0 0 16px;font-size:17px;line-height:1.3}.endpoints strong{overflow-wrap:anywhere}.endpoints strong:first-child{text-align:left}.endpoints strong:last-child{text-align:right}.endpoints>span{font-size:9px;color:var(--muted);letter-spacing:2px}
+.sliderLabel{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--team)}
+.sliderLabel input{width:100%;min-height:44px;margin:0;accent-color:var(--team);cursor:ew-resize}.sliderLabel>span{color:var(--muted);font-size:10px;font-weight:400;line-height:1.6}
+.clue{font:italic 500 clamp(25px,3.3vw,37px)/1.25 var(--heading);margin:0 auto 10px;overflow-wrap:anywhere;max-width:650px}.clue>span{display:block;font:700 8px var(--body);letter-spacing:2px;color:var(--muted);margin-bottom:7px}
+.handoffClue{font:italic 500 28px/1.3 var(--heading);margin:2px 0;overflow-wrap:anywhere;max-width:100%}
+.clueForm{display:flex;align-items:flex-start;gap:20px;max-width:700px;margin:18px auto 0;text-align:left}.clueForm .field{flex:1}.clueForm .primary{margin-top:26px;max-width:240px;font-size:12px;gap:10px;flex-shrink:0}
+.stageAction,.opponentPanel,.revealPanel{margin:18px auto 0}.stageAction p,.opponentPanel>p,.revealSummary{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 14px}
+.opponentPanel h2{font-size:16px;font-weight:600;margin:0 0 9px}.sideChoices{display:flex;justify-content:center;gap:12px;margin:14px 0 18px}.sideChoices button{font-size:12px;gap:10px}.sideChoices button[aria-pressed=true]{background:#4c8dff1a;border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.leftArrow{--icon-angle:180deg}
+.pointAwards{display:flex;justify-content:center;gap:40px;margin:14px 0}.pointAwards>div{display:flex;flex-direction:column;gap:5px;min-width:140px}.pointAwards>div:first-child{color:var(--team)}.pointAwards>div:last-child{color:var(--muted)}.pointAwards strong{font-size:47px;line-height:1.1}.pointAwards span{font-size:10px;line-height:1.5}
+.playBottom{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:7px 4px}.playBottom p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}
+.scoreSection{margin:24px auto 0;max-width:1000px;min-width:0}.scoreHeading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}.scoreHeading h2{font:italic 500 25px var(--heading);margin:0}.scoreHeading>span{font-size:8px;letter-spacing:1.4px;color:var(--muted)}
+.scoreScroll{max-width:100%;overflow-x:auto;border:1px solid #ffffff20;border-radius:12px;background:var(--card);overscroll-behavior-x:contain}.scoreboard{border-collapse:collapse;width:100%;text-align:center;font-size:14px}.scoreboard th,.scoreboard td{padding:13px 15px;min-width:50px;white-space:nowrap}.scoreboard thead{font-size:10px;letter-spacing:1px;color:var(--muted);background:#ffffff04}.scoreboard th:first-child{text-align:left;position:sticky;left:0;background:var(--card);min-width:130px;z-index:1}.scoreboard tbody tr+tr{border-top:1px solid #ffffff15}
+.pinkRow>th{color:var(--pink)}.blueRow>th{color:var(--blue)}.activeLabel{font-size:9px;font-weight:400;color:var(--muted)}.activeCell{background:#ffffff0a;box-shadow:inset 0 -2px 0 var(--team)}.total{font-weight:700;background:#ffffff05}.scoreHint{font-size:10px;line-height:1.6;color:var(--muted);text-align:right;margin:9px 0 0}
+.results{text-align:center}.resultsStar{display:block;color:var(--pink);font-size:50px;margin:16px auto 24px}.finalTotals{display:flex;justify-content:center;align-items:center;gap:40px;margin:28px 0}.finalTotals>div{display:flex;flex-direction:column;gap:7px;min-width:100px}.finalTotals>div:first-child{color:var(--pink)}.finalTotals>div:last-child{color:var(--blue)}.finalTotals strong{font-size:65px;line-height:1.15}.finalTotals>div>span{font-size:11px;letter-spacing:1px}.finalTotals>span{font:italic 40px var(--heading);color:var(--muted)}
+.historyHeading{font:italic 500 34px var(--heading);margin:40px 0 24px}.historyGrid{display:grid;grid-template-columns:1fr 1fr;gap:18px;text-align:left}.historyTurn{background:var(--card);border:1px solid #ffffff20;border-radius:12px;min-width:0;padding:0 18px;align-self:start}.historyTurn summary{padding:20px 0;cursor:pointer;color:var(--team)}.historyTurn summary>span{display:block;color:var(--muted);font-size:10px;line-height:1.6}.historyTurn summary>strong{display:block;font:italic 500 24px/1.3 var(--heading);margin:8px 0;overflow-wrap:anywhere}.historyTurn .endpoints{font-size:12px}.historyTurn>p{font-size:11px;color:var(--muted);line-height:1.7;margin:14px 0}
+.srOnly{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:700px){
+  .header{min-height:60px;gap:12px}.brand{font-size:22px}.brand>span{font-size:25px;margin-right:4px}.headerLabel{font-size:9px;letter-spacing:1px}.headerLabel>span{display:none}.textLink,.textButton{font-size:11px}
+  .main{padding:18px 0;width:92%}.main h1{font-size:41px}.lede{font-size:13px}.rulesGrid{grid-template-columns:1fr;gap:12px;margin:25px 0}.rule{padding:20px;gap:14px}.rule h2{font-size:15px}.rule p{font-size:12px}
+  .rulesNote{padding:18px}.rulesNote p{font-size:12px}.settingsPanel{padding:24px 18px}.formGrid{grid-template-columns:1fr;gap:24px}.settingsSummary{font-size:11px}.settingsSummary strong{font-size:14px}.actions>*{flex:1;min-width:130px;font-size:12px;padding:12px 16px}
+  .playHeading{gap:10px;align-items:flex-start;margin-bottom:15px}.playHeading h1{font-size:29px;letter-spacing:-1px}.playHeading .eyebrow{font-size:8px;letter-spacing:1px}.timer{font-size:22px}.timerControls{gap:5px}.smallButton{padding:7px 8px;min-height:44px;font-size:10px}
+  .gameCard{padding:17px 14px;border-radius:16px}.cardKicker{font-size:8px;letter-spacing:1px}.readyContent{min-height:280px;gap:15px}.readyContent h2{font-size:28px}.readyContent p{font-size:12px}.readyContent .primary{font-size:12px}
+  .endpoints{font-size:14px;gap:10px;margin-bottom:12px}.endpoints>span{font-size:8px}.clue{font-size:28px}.clueForm{flex-direction:column;gap:14px;margin-top:16px}.clueForm .field{width:100%}.clueForm .primary{max-width:none;width:100%;margin:0}
+  .sliderLabel>span{font-size:9px}.sideChoices{gap:8px}.sideChoices button{flex:1;padding:11px 9px;font-size:11px;gap:7px}.pointAwards{gap:20px}.pointAwards>div{min-width:0;flex:1}.pointAwards strong{font-size:42px}.pointAwards span{font-size:9px}.playBottom p{font-size:10px}
+  .scoreHeading h2{font-size:23px}.scoreHeading>span{font-size:7px}.scoreboard th,.scoreboard td{padding:12px}.scoreboard th:first-child{min-width:125px}.scoreHint{font-size:9px}.finalTotals{gap:25px}.finalTotals strong{font-size:56px}.historyGrid{grid-template-columns:1fr}.historyHeading{font-size:29px}.footer{font-size:8px;letter-spacing:1.3px}
+}
+@media(orientation:landscape) and (max-height:600px){
+  .header{min-height:45px}.main{padding:12px 0}.playHeading h1{font-size:29px}.playHeading{margin-bottom:12px}.gameCard{padding:12px 22px}.cardKicker{margin-bottom:6px}.dial{max-width:450px}.readyContent{min-height:210px;gap:12px}.readyStar{display:none}.clue{font-size:26px}.footer{padding:12px}
+}

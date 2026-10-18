@@ -14,6 +14,12 @@ import { Rules as HeadsUpRules } from '../games/heads-up/Rules';
 import { Settings as HeadsUpSettings } from '../games/heads-up/Settings';
 import { Play as HeadsUpPlay } from '../games/heads-up/Play';
 import { Results as HeadsUpResults } from '../games/heads-up/Results';
+import { WavelengthProvider } from '../games/wavelength/WavelengthContext';
+import { WavelengthLayout } from '../games/wavelength/WavelengthLayout';
+import { Rules as WavelengthRules } from '../games/wavelength/Rules';
+import { Settings as WavelengthSettings } from '../games/wavelength/Settings';
+import { Play as WavelengthPlay } from '../games/wavelength/Play';
+import { Results as WavelengthResults } from '../games/wavelength/Results';
 function RouteEffects() {
   const location = useLocation();
   useEffect(() => {
@@ -25,7 +31,7 @@ function RouteEffects() {
   return null;
 }
 export default function App() {
-  return <HashRouter><CharadesProvider><HeadsUpProvider><RouteEffects /><Routes>
+  return <HashRouter><CharadesProvider><HeadsUpProvider><WavelengthProvider><RouteEffects /><Routes>
     <Route path="/" element={<Home />} />
     <Route path="/charades" element={<CharadesLayout />}>
       <Route index element={<Navigate to="rules" replace />} />
@@ -42,6 +48,13 @@ export default function App() {
       <Route path="play" element={<HeadsUpPlay />} />
       <Route path="results" element={<HeadsUpResults />} />
     </Route>
+    <Route path="/wavelength" element={<WavelengthLayout />}>
+      <Route index element={<Navigate to="rules" replace />} />
+      <Route path="rules" element={<WavelengthRules />} />
+      <Route path="settings" element={<WavelengthSettings />} />
+      <Route path="play" element={<WavelengthPlay />} />
+      <Route path="results" element={<WavelengthResults />} />
+    </Route>
     <Route path="*" element={<Navigate to="/" replace />} />
-  </Routes></HeadsUpProvider></CharadesProvider></HashRouter>;
+  </Routes></WavelengthProvider></HeadsUpProvider></CharadesProvider></HashRouter>;
 }

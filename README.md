@@ -36,6 +36,16 @@ Phone motion requires HTTPS and a supporting browser. Permission is requested on
 
 Motion geometry, gesture filtering, permissions/fallbacks, and the game flow have automated tests. Physical iOS/Android sensor behavior and browser layout still need testing on real devices. Refreshing clears an active match; Play again retains your settings for the current session.
 
+## Local Wavelength
+
+Click **Play Wavelength** for rules, settings, and a two-team game on one device. Team 1 is pink; Team 2 is blue. The clue-giver privately sees a random target, types a short clue, hides the target, and passes the device. Their teammates discuss and move the dial using touch, mouse, or the keyboard-accessible slider. After the guess locks, the other team chooses left or right, then both teams see the reveal and confirm the scores.
+
+The default is an untimed race to 10 points. Standard starting points, catch-up turns, and paired tiebreaks follow the [published Wavelength rulebook](https://www.sutherlandshire.nsw.gov.au/__data/assets/pdf_file/0032/77909/Wavelength-rulebook.pdf). Optional house settings offer races to 15/20, fixed 3/5/7 rounds, and 60/90/120-second discussion timers. Fixed rounds give equal turns, start both teams at zero, disable catch-up turns, and allow a draw. A timer starts only after the handoff and locks the current needle at zero.
+
+This local adaptation uses an original 80-pair deck in `src/games/wavelength/spectra.ts`. Digital scoring is based on distance along the 0–100 dial: up to 3 earns 4 points; up to 7 earns 3; up to 11 earns 2; farther earns 0. Exact boundaries favor the higher score. The opposing team can earn 1 point for the correct side, except on a 4-point hit. These band widths are PGG's digital choice, rather than a measured copy of the physical device.
+
+The target is removed from the rendered dial during handoff and guessing. Leaving an active stage or hiding the tab covers the private content and pauses any running clock; resume is explicit. Reset clears the current clue and guesses and requires a new target; confirmed scores remain. Results include the scoreboard and expandable clue history. Play again returns to settings; Exit home clears the match. Refreshing clears the match, as with the other games. Automated tests cover rules, scoring, privacy, timing, full games, replay, and routing; real-device visual and touch testing remains manual.
+
 ## Code map
 
 - `src/app/`: routes and homepage.
@@ -49,6 +59,9 @@ Motion geometry, gesture filtering, permissions/fallbacks, and the game flow hav
 - `src/games/heads-up/words.ts`: compatibility export for the original starter deck.
 - `src/games/heads-up/gestures.ts`: screen-tilt geometry, gesture thresholds, and device detection.
 - `src/games/heads-up/useMotion.ts`: browser sensor permission, listeners, and loss-of-signal handling.
+- `src/games/wavelength/`: rules, settings, private clue/handoff/guess/prediction/reveal stages, scoreboard, results, and tests.
+- `src/games/wavelength/engine.ts`: scoring bands, starting points, catch-up turns, tiebreaks, and optional discussion clock.
+- `src/games/wavelength/spectra.ts`: editable original spectrum-pair deck.
 - `src/games/shared/`: shared timer sounds, shuffle/timer-cue utilities, and accessible game dialogs.
 - `src/styles/tokens.css`: shared colors, fonts, and animation speeds.
 
