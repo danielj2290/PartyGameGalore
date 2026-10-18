@@ -34,7 +34,7 @@ export function Dial({ spectrum, guess, target, onChange }: {
       onPointerMove={event => { if (dragging.current) move(event); }}
       onPointerUp={() => { dragging.current = false; }} onPointerCancel={() => { dragging.current = false; }}>
       <title id={`${id}-title`}>{target === undefined ? 'Hidden-target dial' : 'Target revealed'}</title>
-      <desc id={`${id}-description`}>{`${spectrum.left} on the left; ${spectrum.right} on the right. `}{target === undefined ? 'The target is hidden.' : 'The center is worth 4 points, the adjacent bands 3, and the outer bands 2.'}{guess !== undefined ? ` Needle: ${positionText(guess)}.` : ''}</desc>
+      <desc id={`${id}-description`}>{`${spectrum.left} at 0 on the left; ${spectrum.right} at 10 on the right. The scale is numbered in steps of 1. `}{target === undefined ? 'The target is hidden.' : 'The center is worth 4 points, the adjacent bands 3, and the outer bands 2.'}{guess !== undefined ? ` Needle: ${positionText(guess)}.` : ''}</desc>
       <path d="M40 300 A280 280 0 0 1 600 300 L320 300 Z" fill="#24242b" stroke="#ffffff25" strokeWidth="2" />
       {target !== undefined && <g data-testid="wavelength-target">
         <path d={wedge(target - 11, target + 11)} fill="#6089d8" />
@@ -51,9 +51,13 @@ export function Dial({ spectrum, guess, target, onChange }: {
         return <line key={i} x1={a.x} y1={a.y} x2={b.x} y2={b.y} />;
       })}</g>
       {guess !== undefined && <g aria-hidden="true"><line x1="320" y1="300" x2={needle.x} y2={needle.y} stroke="var(--team)" strokeWidth="7" strokeLinecap="round" /><circle cx="320" cy="300" r="19" fill="var(--team)" /><circle cx="320" cy="300" r="8" fill="#28232f" /></g>}
+      <g className={styles.dialNumbers} aria-hidden="true">{Array.from({ length: 11 }, (_, index) => {
+        const label = point(index * 10, 241);
+        return <text key={index} x={label.x} y={label.y} textAnchor="middle" dominantBaseline="middle">{index}</text>;
+      })}</g>
       {target === undefined && <text x="320" y="170" textAnchor="middle" fill="#c2bdc7" fontSize="13" letterSpacing="2">TRUST YOUR PEOPLE</text>}
     </svg>
     <div className={styles.endpoints}><strong>{spectrum.left}</strong><span aria-hidden="true">TO</span><strong>{spectrum.right}</strong></div>
-    {onChange && <label className={styles.sliderLabel}>Move the dial<input type="range" min="0" max="100" step="1" value={guess ?? 50} aria-valuetext={positionText(guess ?? 50)} onChange={event => onChange(Number(event.target.value))} /><span>Drag the needle, tap the arc, or use the slider and arrow keys.</span></label>}
+    {onChange && <label className={styles.sliderLabel}>Move the dial<input type="range" min="0" max="10" step="0.1" value={(guess ?? 50) / 10} aria-valuetext={`${(guess ?? 50) / 10}: ${positionText(guess ?? 50)}`} onChange={event => onChange(Number(event.target.value) * 10)} /><span>Drag the needle, tap the arc, or use the slider and arrow keys.</span></label>}
   </div>;
 }

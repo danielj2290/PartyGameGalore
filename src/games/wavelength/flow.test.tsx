@@ -33,6 +33,7 @@ const targetHidden = () => expect(screen.queryByTestId('wavelength-target')).toB
 async function prepare(user: ReturnType<typeof userEvent.setup>, clue = 'Movie night') {
   await user.click(screen.getByRole('button', { name: /Show my target/ }));
   expect(screen.getByTestId('wavelength-target')).toBeTruthy();
+  expect(within(screen.getByRole('region', { name: 'Current topic' })).getByRole('heading').textContent).toBeTruthy();
   fireEvent.change(screen.getByLabelText(/^Your clue/), { target: { value: clue } });
   await user.click(screen.getByRole('button', { name: /Hide target & pass to team/ }));
   targetHidden();
@@ -42,6 +43,8 @@ async function prepare(user: ReturnType<typeof userEvent.setup>, clue = 'Movie n
 async function reveal(user: ReturnType<typeof userEvent.setup>) {
   await user.click(screen.getByRole('button', { name: /Lock our guess/ }));
   targetHidden();
+  expect(screen.getByText("OTHER TEAM'S TURN")).toBeTruthy();
+  expect(screen.getByText(/make your left\/right prediction\./)).toBeTruthy();
   expect(screen.queryByRole('slider')).toBeNull();
   expect((screen.getByRole('button', { name: 'Reveal target' }) as HTMLButtonElement).disabled).toBe(true);
   await user.click(screen.getByRole('button', { name: 'Left of the needle' }));
@@ -69,9 +72,9 @@ describe('Wavelength local flow', () => {
     await user.click(screen.getByRole('button', { name: /We're ready to guess/ })); targetHidden();
     expect(screen.queryByRole('timer')).toBeNull();
     const slider = screen.getByRole('slider', { name: /Move the dial/ });
-    fireEvent.change(slider, { target: { value: '20' } });
-    expect((slider as HTMLInputElement).value).toBe('20');
-    fireEvent.change(slider, { target: { value: '50' } });
+    fireEvent.change(slider, { target: { value: '2' } });
+    expect((slider as HTMLInputElement).value).toBe('2');
+    fireEvent.change(slider, { target: { value: '5' } });
     await reveal(user);
     expect(within(screen.getByLabelText('Points this turn')).getByText('+4')).toBeTruthy();
     const beforeRows = within(screen.getByRole('table')).getAllByRole('row');
@@ -114,7 +117,7 @@ describe('Wavelength local flow', () => {
     await tick(180000);
     await user.click(screen.getByRole('button', { name: /We're ready to guess/ }));
     expect(screen.getByRole('timer').textContent).toBe('1:00');
-    fireEvent.change(screen.getByRole('slider'), { target: { value: '25' } });
+    fireEvent.change(screen.getByRole('slider'), { target: { value: '2.5' } });
     await tick(5040); expect(screen.getByRole('timer').textContent).toBe('0:55');
     vi.spyOn(document, 'hidden', 'get').mockReturnValue(true); fireEvent(document, new Event('visibilitychange'));
     targetHidden(); expect(screen.queryByText('Library nap')).toBeNull(); expect(screen.queryByRole('slider')).toBeNull();
@@ -122,7 +125,7 @@ describe('Wavelength local flow', () => {
     vi.spyOn(document, 'hidden', 'get').mockReturnValue(false); fireEvent(document, new Event('visibilitychange'));
     expect(screen.getByText('Game paused')).toBeTruthy();
     await user.click(screen.getByRole('button', { name: /Resume turn/ }));
-    expect((screen.getByRole('slider') as HTMLInputElement).value).toBe('25');
+    expect((screen.getByRole('slider') as HTMLInputElement).value).toBe('2.5');
     await tick(45000); expect(GameAudio.prototype.play).toHaveBeenCalledWith('warning');
     await tick(5000); expect(GameAudio.prototype.play).toHaveBeenCalledWith('countdown');
     await tick(5100); expect(GameAudio.prototype.play).toHaveBeenCalledWith('end');

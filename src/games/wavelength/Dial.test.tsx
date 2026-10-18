@@ -3,7 +3,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { afterEach, expect, it, vi } from 'vitest';
 import { Dial } from './Dial';
 
-const spectrum = { id: 'test', left: 'Tiny party', right: 'Huge party' };
+const spectrum = { id: 'test', left: 'Tiny party', right: 'Huge party', topic: 'Parties' };
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 
 it('supports touch/pointer arc movement and an accessible native slider', () => {
@@ -12,9 +12,12 @@ it('supports touch/pointer arc movement and an accessible native slider', () => 
   render(<Dial spectrum={spectrum} guess={50} onChange={change} />);
   const dial = screen.getByRole('img');
   const slider = screen.getByRole('slider', { name: /Move the dial/ });
-  expect(slider.getAttribute('aria-valuetext')).toBe('Around the middle');
+  expect(slider.getAttribute('aria-valuetext')).toBe('5: Around the middle');
+  expect(slider.getAttribute('max')).toBe('10');
   expect(screen.queryByTestId('wavelength-target')).toBeNull();
-  fireEvent.change(slider, { target: { value: 75 } }); expect(change).toHaveBeenLastCalledWith(75);
+  const numbers = Array.from(dial.querySelectorAll('g[aria-hidden="true"] text'), label => label.textContent);
+  expect(numbers).toEqual(['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']);
+  fireEvent.change(slider, { target: { value: 7.5 } }); expect(change).toHaveBeenLastCalledWith(75);
   fireEvent.pointerDown(dial, { clientX: 53, clientY: 300, pointerId: 1 }); expect(change).toHaveBeenLastCalledWith(0);
   fireEvent.pointerMove(dial, { clientX: 320, clientY: 33, pointerId: 1 }); expect(change).toHaveBeenLastCalledWith(50);
   fireEvent.pointerMove(dial, { clientX: 587, clientY: 300, pointerId: 1 }); expect(change).toHaveBeenLastCalledWith(100);

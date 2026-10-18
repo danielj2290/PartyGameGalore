@@ -31,6 +31,11 @@
 .readyContent{min-height:300px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:20px 0}.readyStar{font-size:40px;color:var(--team)}.readyContent>span{color:var(--team)}
 .readyContent h2{font:italic 500 clamp(27px,3vw,37px)/1.2 var(--heading);margin:0}.readyContent p{color:var(--muted);font-size:13px;line-height:1.8;margin:0;max-width:460px}.readyContent>.primary{margin-top:4px}
 .dial{width:min(100%,630px);margin:auto}.dial svg{width:100%;height:auto;display:block;overflow:visible;user-select:none}.interactiveDial{touch-action:none;cursor:crosshair}
+.dialNumbers{fill:var(--text);font:600 21px var(--body);stroke:#24242b;stroke-width:4px;paint-order:stroke;stroke-linejoin:round}
+.topic{max-width:630px;margin:0 auto 18px;padding:13px 16px;background:#ffffff04;border:1px solid #ffffff15;border-radius:10px}.topic>span{font-size:8px;letter-spacing:2px;color:var(--muted);font-weight:700}.topic h2{font-size:20px;line-height:1.3;font-weight:600;margin:5px 0;color:var(--text)}.topic p{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:8px;font-size:12px;line-height:1.6;color:var(--muted);margin:0}.topic p>span{color:var(--team)}
+.predictionHeading .eyebrow,.predictionCard>.cardKicker{color:var(--responding-team)}.predictionCard{border-color:var(--responding-team)}
+.predictionNotice{max-width:630px;margin:0 auto 16px;border:1px solid var(--pink);border-radius:10px;background:#f7a1e314;padding:14px 18px;text-align:left;box-shadow:inset 4px 0 0 var(--pink)}.predictionNotice>span{display:block;font-size:9px;letter-spacing:1.5px;font-weight:700;color:var(--pink);margin-bottom:6px}.predictionNotice>strong{font-size:15px;line-height:1.5}
+.opponentPanel{--team:var(--responding-team)}
 .endpoints{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;margin:0 0 16px;font-size:17px;line-height:1.3}.endpoints strong{overflow-wrap:anywhere}.endpoints strong:first-child{text-align:left}.endpoints strong:last-child{text-align:right}.endpoints>span{font-size:9px;color:var(--muted);letter-spacing:2px}
 .sliderLabel{display:flex;flex-direction:column;align-items:center;gap:5px;font-size:11px;font-weight:600;color:var(--team)}
 .sliderLabel input{width:100%;min-height:44px;margin:0;accent-color:var(--team);cursor:ew-resize}.sliderLabel>span{color:var(--muted);font-size:10px;font-weight:400;line-height:1.6}
@@ -38,7 +43,7 @@
 .handoffClue{font:italic 500 28px/1.3 var(--heading);margin:2px 0;overflow-wrap:anywhere;max-width:100%}
 .clueForm{display:flex;align-items:flex-start;gap:20px;max-width:700px;margin:18px auto 0;text-align:left}.clueForm .field{flex:1}.clueForm .primary{margin-top:26px;max-width:240px;font-size:12px;gap:10px;flex-shrink:0}
 .stageAction,.opponentPanel,.revealPanel{margin:18px auto 0}.stageAction p,.opponentPanel>p,.revealSummary{font-size:12px;color:var(--muted);line-height:1.7;margin:0 0 14px}
-.opponentPanel h2{font-size:16px;font-weight:600;margin:0 0 9px}.sideChoices{display:flex;justify-content:center;gap:12px;margin:14px 0 18px}.sideChoices button{font-size:12px;gap:10px}.sideChoices button[aria-pressed=true]{background:#4c8dff1a;border-color:var(--blue);box-shadow:0 0 0 1px var(--blue)}
+.opponentPanel h2{font-size:16px;font-weight:600;margin:0 0 9px;color:var(--team)}.sideChoices{display:flex;justify-content:center;gap:12px;margin:14px 0 18px}.sideChoices button{font-size:12px;gap:10px}.sideChoices button[aria-pressed=true]{background:#ffffff0a;border-color:var(--team);box-shadow:0 0 0 1px var(--team)}
 .leftArrow{--icon-angle:180deg}
 .pointAwards{display:flex;justify-content:center;gap:40px;margin:14px 0}.pointAwards>div{display:flex;flex-direction:column;gap:5px;min-width:140px}.pointAwards>div:first-child{color:var(--team)}.pointAwards>div:last-child{color:var(--muted)}.pointAwards strong{font-size:47px;line-height:1.1}.pointAwards span{font-size:10px;line-height:1.5}
 .playBottom{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:7px 4px}.playBottom p{font-size:11px;line-height:1.6;color:var(--muted);margin:0}
