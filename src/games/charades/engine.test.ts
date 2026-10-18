@@ -9,8 +9,8 @@ const finish = (match: Match) => reduceMatch(match, { type: 'TICK', now: match.d
 const confirm = (match: Match) => reduceMatch(finish(match), { type: 'CONFIRM' });
 
 describe('Charades match', () => {
-  it('defaults to 60 seconds, unlimited skips, medium words, three rounds, and a random starter', () => {
-    expect(defaultSettings).toEqual({ seconds: 60, skips: null, difficulty: 'medium', rounds: 3, startingTeam: 'random' });
+  it('defaults to 60 seconds, unlimited skips, easy words, three rounds, and a random starter', () => {
+    expect(defaultSettings).toEqual({ seconds: 60, skips: null, difficulty: 'easy', rounds: 3, startingTeam: 'random' });
     expect(createMatch(defaultSettings, () => .1).startingTeam).toBe(1);
     expect(createMatch(defaultSettings, () => .9).startingTeam).toBe(2);
   });
@@ -109,7 +109,7 @@ describe('Charades match', () => {
     expect(reduceMatch(match, { type: 'START', now: 0 })).toBe(match);
   });
   it('handles a one-round game and clean replay with retained settings', () => {
-    let match = setup({ rounds: 1, seconds: 90, skips: 3, difficulty: 'hard', startingTeam: 2 });
+    let match = setup({ rounds: 1, seconds: 90, skips: 3, difficulty: 'challenging', startingTeam: 2 });
     match = confirm(start(match)); match = confirm(start(match, 100000));
     expect(match.phase).toBe('finished');
     const replay = createMatch(match.settings);
@@ -117,16 +117,20 @@ describe('Charades match', () => {
     expect(replay.completed).toEqual([]); expect(replay.entries).toEqual([]);
     expect(replay.remainingMs).toBe(90000);
   });
-  it('has 100 unique words per difficulty and avoids repeats until exhaustion', () => {
+  it('has two expanded word pools and avoids repeats until each pool is exhausted', () => {
     expect(new Set(words.map(word => word.id)).size).toBe(words.length);
-    for (const difficulty of ['easy', 'medium', 'hard'] as const) {
-      expect(words.filter(word => word.difficulty === difficulty)).toHaveLength(100);
+    expect(new Set(words.map(word => word.text.trim().toLowerCase())).size).toBe(words.length);
+    expect(new Set(words.map(word => word.difficulty))).toEqual(new Set(['easy', 'challenging']));
+    expect(words.every(word => word.text.trim().length > 0)).toBe(true);
+    for (const difficulty of ['easy', 'challenging'] as const) {
+      const pool = words.filter(word => word.difficulty === difficulty);
+      expect(pool.length).toBeGreaterThanOrEqual(200);
       let match = start(setup({ difficulty }));
-      for (let index = 0; index < 99; index++) match = reduceMatch(match, { type: 'RECORD', outcome: 'correct', now: index + 1 });
-      expect(new Set(match.entries.map(entry => entry.word.id)).size).toBe(100);
+      for (let index = 0; index < pool.length - 1; index++) match = reduceMatch(match, { type: 'RECORD', outcome: 'correct', now: index + 1 });
+      expect(new Set(match.entries.map(entry => entry.word.id)).size).toBe(pool.length);
       const previous = match.entries.at(-1)!.word.id;
-      match = reduceMatch(match, { type: 'RECORD', outcome: 'correct', now: 200 });
-      expect(match.entries).toHaveLength(101); expect(match.phase).toBe('playing');
+      match = reduceMatch(match, { type: 'RECORD', outcome: 'correct', now: pool.length + 1 });
+      expect(match.entries).toHaveLength(pool.length + 1); expect(match.phase).toBe('playing');
       expect(match.entries.at(-1)!.word.id).not.toBe(previous);
     }
   });

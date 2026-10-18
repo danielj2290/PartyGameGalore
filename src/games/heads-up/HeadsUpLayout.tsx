@@ -7,18 +7,19 @@ import { useHeadsUp } from './HeadsUpContext';
 import styles from './HeadsUp.module.css';
 
 export function HeadsUpLayout() {
-  const { match, dispatch } = useHeadsUp();
+  const { match, dispatch, device, landscape } = useHeadsUp();
   const [exit, setExit] = useState(false);
   const content = useRef<HTMLElement>(null);
   const location = useLocation();
   const navigate = useNavigate();
   const inPlay = location.pathname === '/heads-up/play';
   const live = inPlay && match && match.phase !== 'finished';
+  const phoneViewport = inPlay && device === 'phone' && landscape;
   useEffect(() => {
     document.title = 'Heads Up — Party Games Galore'; window.scrollTo(0, 0);
     content.current?.querySelector<HTMLElement>('h1')?.focus();
   }, [location.pathname]);
-  return <div className={`${styles.page} ${inPlay ? styles.gamePage : ''}`}>
+  return <div className={`${styles.page} ${inPlay ? styles.gamePage : ''} ${phoneViewport ? styles.phoneViewport : ''}`}>
     <LightReflections />
     <header className={styles.header}>
       <Link className={styles.brand} to="/" aria-label="Party Games Galore home" onClick={event => { if (live) { event.preventDefault(); dispatch({ type: 'PAUSE', now: performance.now() }); setExit(true); } }}><span aria-hidden="true"><Icon name="burst" /></span> PGG.</Link>

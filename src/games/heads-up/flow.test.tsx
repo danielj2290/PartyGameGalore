@@ -138,9 +138,11 @@ describe('Heads Up phone setup and input', () => {
     orientation(0, 90); await tick(720); orientation(0, 90);
     orientation(180, 30); await tick(200); orientation(180, 30);
     expect(screen.getByText(/Down tilt checked/)).toBeTruthy();
-    orientation(0, 90);
+    // Completing the second check must unlock Next even while still tilted.
     await user.click(screen.getByRole('link', { name: /Next: How to play/ }));
+    await tick(12000);
     await user.click(screen.getByRole('link', { name: /Next: Settings/ }));
+    await tick(12000);
     await user.click(screen.getByRole('button', { name: /Start game/ }));
     await user.click(screen.getByRole('button', { name: /Start turn/ }));
     await tick(1520); orientation(0, 90); await tick(1520); orientation(0, 90);
@@ -152,6 +154,14 @@ describe('Heads Up phone setup and input', () => {
     await tick(720); orientation(0, 30); expect(screen.getByTestId('heads-up-word').textContent).toBe(second);
     await tick(3600);
     expect(screen.getByText('Game paused')).toBeTruthy(); expect(screen.queryByTestId('heads-up-word')).toBeNull();
+    // A fresh sample reconnects the sensor without repeating the permission prompt.
+    orientation(0, 90);
+    expect((screen.getByRole('button', { name: 'Resume' }) as HTMLButtonElement).disabled).toBe(false);
+    expect(screen.getByText('Game paused')).toBeTruthy();
+    await user.click(screen.getByRole('button', { name: /Resume turn/ }));
+    expect(screen.getByTestId('heads-up-word').textContent).toBe(second);
+    expect(request).toHaveBeenCalledOnce();
+    await tick(3600);
     await user.click(screen.getByRole('button', { name: 'Use Assisted play' }));
     await user.click(screen.getByRole('button', { name: /Resume turn/ }));
     expect(screen.getByTestId('heads-up-word').textContent).toBe(second);
@@ -163,6 +173,16 @@ describe('Heads Up phone setup and input', () => {
     expect(screen.getByText(/Motion access was not allowed/)).toBeTruthy();
     await user.click(screen.getByRole('button', { name: 'Use Assisted play instead' }));
     expect(screen.getByRole('link', { name: /Next: How to play/ })).toBeTruthy();
+    await user.click(screen.getByRole('link', { name: /Next: How to play/ }));
+    await user.click(screen.getByRole('link', { name: /Next: Settings/ }));
+    await user.click(screen.getByRole('button', { name: /Start game/ }));
+    await user.click(screen.getByRole('button', { name: /Start turn/ })); await tick(3040);
+    expect(document.querySelector('[class*="phoneViewport"]')).toBeTruthy();
+    const first = screen.getByTestId('heads-up-word').textContent;
+    await user.click(screen.getByRole('button', { name: 'Correct' }));
+    expect(screen.getByTestId('heads-up-word').textContent).not.toBe(first);
+    await user.click(screen.getByRole('button', { name: 'Skip' }));
+    expect(screen.getByText('Skipped. Fresh start.')).toBeTruthy();
   });
   it('rejects missing sensor values, times out gracefully, and pauses when rotated to portrait', async () => {
     phoneEnvironment();

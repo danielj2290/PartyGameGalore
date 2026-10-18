@@ -7,7 +7,7 @@ export type Team = 1 | 2;
 export type Outcome = 'correct' | 'skipped' | 'unanswered';
 export type Phase = 'ready' | 'playing' | 'paused' | 'reviewing' | 'finished';
 export interface Settings { seconds: number; skips: number | null; difficulty: Difficulty; rounds: number; startingTeam: Team | 'random' }
-export const defaultSettings: Settings = { seconds: 60, skips: null, difficulty: 'medium', rounds: 3, startingTeam: 'random' };
+export const defaultSettings: Settings = { seconds: 60, skips: null, difficulty: 'easy', rounds: 3, startingTeam: 'random' };
 export interface Entry { word: Word; outcome: Outcome }
 export interface Turn { team: Team; round: number; entries: Entry[] }
 export interface Match {

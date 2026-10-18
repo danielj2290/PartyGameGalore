@@ -17,3 +17,37 @@
 .word{font-size:clamp(32px,calc(7.5vw * var(--word-scale,1)),116px)}
 @media(max-width:700px){.word{font-size:clamp(28px,calc(10vw * var(--word-scale,1)),70px)}}
 @media(orientation:landscape) and (max-height:600px){.phonePlay .word{font-size:clamp(26px,calc(10vw * var(--word-scale,1)),110px)}}
+
+.wordSpace{width:100%;min-width:0}
+/* Reserve controls first; let the card use the remaining visible phone height. */
+.phoneViewport{height:100dvh;min-height:0;padding:0 env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);overscroll-behavior:none}
+.phoneViewport .header{min-height:44px;height:44px;flex-shrink:0;gap:12px}
+.phoneViewport .brand{font-size:18px}.phoneViewport .brand>span{font-size:22px}
+.phoneViewport .headerLabel{font-size:9px}.phoneViewport .headerLabel>span{display:none}
+.phoneViewport .main{min-height:0;display:flex;width:94%;padding:0 0 4px}
+.phoneViewport .footer{display:none}
+.phoneViewport .playScreen{width:100%;min-height:0;display:flex;flex-direction:column;margin:0 auto;gap:4px}
+.phoneViewport .playHeading{flex-shrink:0;margin:0;align-items:center;gap:8px}
+.phoneViewport .playHeading h1{font-size:20px;letter-spacing:-.5px;line-height:1.1}
+.phoneViewport .playHeading .eyebrow{font-size:8px;letter-spacing:.6px;margin:0}
+.phoneViewport .timerPanel{display:flex;align-items:center;gap:10px}
+.phoneViewport .timer{font-size:27px}.phoneViewport .timerControls{margin:0;flex-wrap:nowrap;max-width:none}
+.phoneViewport .smallButton{min-height:44px;padding:6px 10px;font-size:10px}
+.phoneViewport .wordCard{flex:1;min-height:0;min-width:0;padding:25px 16px 7px;border-radius:14px}
+.phoneViewport .cardKicker{top:7px;left:14px;font-size:8px;letter-spacing:1px}
+.phoneViewport .wordSpace{flex:1;min-height:0;display:flex;align-items:center}
+.phoneViewport .word{width:100%;margin:0;line-height:1.04;letter-spacing:-.03em;overflow-wrap:anywhere;text-wrap:wrap}
+.phoneViewport .wordActions{flex-shrink:0;width:100%;max-width:none;margin:0;gap:12px}
+.phoneViewport .skipButton,.phoneViewport .correctButton{min-height:44px;height:44px;padding:6px 18px;font-size:15px}
+.phoneViewport .playBottom{flex-shrink:0;justify-content:flex-end;margin:0;min-height:0}
+.phoneViewport .controlHint{display:none}
+.phoneViewport .playBottom .textButton{min-height:28px;padding:3px 8px;font-size:10px}
+.phoneViewport .turnNotice{flex-shrink:0;min-height:12px;margin:0;font-size:10px;line-height:1.2}
+.phoneViewport .readyContent{gap:5px}.phoneViewport .readyStar{display:none}
+.phoneViewport .readyContent h2{font-size:23px}.phoneViewport .readyContent p{font-size:11px;line-height:1.4}
+.phoneViewport .readyContent .primary{min-height:44px;margin:0;padding:8px 20px}
+.phoneViewport .readyContent .hint{font-size:10px;margin:0}
+.phoneViewport .countdown strong{font-size:60px}.phoneViewport .countdown p{margin:3px 0;font-size:11px}
+.phoneViewport .inputNotice{flex-shrink:0;margin:0;padding:6px 12px;font-size:11px}
+.phoneViewport .inputNotice p{margin:0}.phoneViewport .inputNotice .actions{margin-top:3px;gap:8px}
+.phoneViewport .inputNotice .actions>*{min-height:36px;padding:5px 10px;font-size:10px}

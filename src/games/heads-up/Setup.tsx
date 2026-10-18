@@ -8,12 +8,12 @@ export function Setup() {
   const { device, chooseDevice, controls, useButtons, motion, practice, landscape } = useHeadsUp();
   const phone = device === 'phone';
   const practiced = practice.correct && practice.skipped;
-  const canContinue = !phone || (landscape && (controls === 'buttons' || (motion.status === 'ready' && practiced && motion.upright)));
+  const canContinue = !phone || (landscape && (controls === 'buttons' || (motion.status === 'ready' && practiced)));
   const messages: Record<typeof motion.status, string> = {
     idle: 'Tap Enable motion, then allow motion access if your browser asks.',
     requesting: 'Waiting for your motion permission…',
     waiting: 'Listening for your phone. Hold it upright, with the screen facing your friends.',
-    ready: practiced ? 'Both tilts checked. Return the phone upright to continue.' : 'Start upright. Hold a tilt briefly, then return upright between gestures.',
+    ready: practiced ? 'Both tilts checked. You can continue, then hold the phone upright before playing.' : 'Start upright. Hold a tilt briefly, then return upright between gestures.',
     denied: 'Motion access was not allowed. You can try again or use Assisted play.',
     unavailable: 'No usable motion data is arriving. Try again or have a friend use Assisted play.',
     insecure: 'Motion needs a secure connection. Open the HTTPS website on your phone, or use Assisted play.',

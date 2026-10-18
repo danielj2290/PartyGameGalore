@@ -36,7 +36,7 @@ export function HeadsUpProvider({ children }: { children: ReactNode }) {
   const motion = useMotion(inside && device === 'phone' && controls === 'motion', outcome => {
     if (location.pathname === '/heads-up/setup') setPractice(value => ({ ...value, [outcome]: true }));
     if (location.pathname === '/heads-up/play' && match?.phase === 'playing' && landscape) dispatch({ type: 'RECORD', outcome, now: performance.now() });
-  }, () => dispatch({ type: 'PAUSE', now: performance.now() }));
+  }, () => dispatch({ type: 'PAUSE', now: performance.now() }), match?.phase === 'playing' || match?.phase === 'countdown');
   const audio = useRef<GameAudio | null>(null);
   const previousSeconds = useRef(settings.seconds);
   useEffect(() => {

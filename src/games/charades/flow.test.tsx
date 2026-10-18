@@ -5,6 +5,7 @@ import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import App from '../../app/App';
 import { GameAudio } from './audio';
+import { words } from './words';
 
 beforeEach(() => {
   vi.useFakeTimers({ toFake: ['setInterval', 'clearInterval', 'Date', 'performance'] });
@@ -32,7 +33,7 @@ async function configure() {
   expect((screen.getByLabelText(/^Time per turn/) as HTMLSelectElement).value).toBe('60');
   expect((screen.getByLabelText(/^Skips per turn/) as HTMLSelectElement).value).toBe('unlimited');
   expect((screen.getByLabelText(/^Number of rounds/) as HTMLSelectElement).value).toBe('3');
-  expect((screen.getByLabelText(/^Word difficulty/) as HTMLSelectElement).value).toBe('medium');
+  expect((screen.getByLabelText(/^Word difficulty/) as HTMLSelectElement).value).toBe('easy');
   expect((screen.getByLabelText(/^Starting team/) as HTMLSelectElement).value).toBe('random');
   await user.selectOptions(screen.getByLabelText(/^Time per turn/), '30');
   await user.selectOptions(screen.getByLabelText(/^Skips per turn/), '1');
@@ -44,6 +45,18 @@ async function configure() {
 }
 
 describe('Charades screens', () => {
+  it.each(['easy', 'challenging'] as const)('offers just two difficulty levels and plays %s prompts', async difficulty => {
+    const user = launch();
+    await user.click(screen.getByRole('button', { name: 'Play Charades' }));
+    await user.click(screen.getByRole('link', { name: /Next: Settings/ }));
+    const selector = screen.getByLabelText(/^Word difficulty/);
+    expect(within(selector).getAllByRole('option')).toHaveLength(2);
+    await user.selectOptions(selector, difficulty);
+    await user.click(screen.getByRole('button', { name: /Start game/ }));
+    await user.click(screen.getByRole('button', { name: /Start turn/ }));
+    const word = document.querySelector('[aria-live="polite"][aria-atomic="true"]')!.textContent;
+    expect(words.some(item => item.text === word && item.difficulty === difficulty)).toBe(true);
+  });
   it('plays a complete match, corrects outcomes, shows results, replays with settings, and exits home', async () => {
     const user = await configure();
     expect(screen.getByText(/Keep the word hidden from your team/)).toBeTruthy();

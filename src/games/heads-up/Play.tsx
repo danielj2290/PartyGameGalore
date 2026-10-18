@@ -7,6 +7,7 @@ import { useHeadsUp } from './HeadsUpContext';
 import { activeParticipant, teamRounds } from './engine';
 import { categories } from './categories';
 import { Review } from './Review';
+import { FittedWord } from './FittedWord';
 import styles from './HeadsUp.module.css';
 
 export function Play() {
@@ -49,7 +50,7 @@ export function Play() {
       <span className={styles.cardKicker}>{person.label.toUpperCase()} <span aria-hidden="true"><Icon name="sparkle" /></span> {categories.find(category => category.id === match.settings.category)?.label}</span>
       {ready ? <div className={styles.readyContent}><span className={styles.readyStar} aria-hidden="true"><Icon name="burst" /></span><h2>Keep the answer out of sight.</h2><p>{phone ? 'Hold the phone sideways, screen facing your clue-givers.' : 'Face the screen toward your clue-givers. Let a friend handle the keys.'}<br />{match.settings.mode === 'teams' ? 'Choose a new guesser from your team.' : `Pass the device to ${person.label}.`}</p><button className={styles.primary} disabled={startBlocked} onClick={() => { unlockAudio(); dispatch({ type: 'ARM', now: performance.now() }); }}>Start turn <Icon name="arrowUpRight" /></button><span className={styles.hint}>You’ll have 3 seconds to get in position.</span></div>
         : match.phase === 'countdown' ? <div className={styles.countdown} role="status" aria-live="polite"><strong>{Math.ceil(match.countdownMs / 1000)}</strong><p>Screen away. Friends ready.</p></div>
-          : playing ? <h2 className={styles.word} style={{ '--word-scale': Math.min(1, Math.sqrt(18 / (currentWord?.length || 1))) } as CSSProperties} data-testid="heads-up-word" aria-live="polite" aria-atomic="true">{currentWord}</h2>
+          : playing ? <FittedWord text={currentWord ?? ''} fit={phone && landscape} />
             : <div className={styles.readyContent}><span className={styles.readyStar} aria-hidden="true"><Icon name="pause" /></span><h2>{match.phase === 'reviewing' ? 'Turn complete' : 'Game paused'}</h2><p>{match.phase === 'reviewing' ? 'Review the words before passing the device.' : 'Stop guessing. The answer stays hidden until you resume.'}</p>{match.phase === 'paused' && <button className={styles.primary} disabled={startBlocked} onClick={() => { unlockAudio(); dispatch({ type: 'RESUME', now: performance.now() }); }}>Resume turn <Icon name="play" /></button>}</div>}
     </div>
     {settings.assistedPlay && !ready && match.phase !== 'countdown' && <div className={styles.wordActions}><button className={styles.skipButton} disabled={!playing} onClick={() => dispatch({ type: 'RECORD', outcome: 'skipped', now: performance.now() })}><Icon name="arrowDown" /> Skip</button><button className={styles.correctButton} disabled={!playing} onClick={() => dispatch({ type: 'RECORD', outcome: 'correct', now: performance.now() })}><Icon name="arrowUp" /> Correct</button></div>}

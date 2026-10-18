@@ -13,11 +13,11 @@ npm run build
 
 ## Local Charades
 
-Click **Play** on Charades to read the rules, choose settings, and start a match. Two teams alternate timed turns; one round includes a turn for each team. Defaults are 60 seconds, unlimited skips, Medium words, 3 rounds, and a random starting team.
+Click **Play** on Charades to read the rules, choose settings, and start a match. Two teams alternate timed turns; one round includes a turn for each team. Defaults are 60 seconds, unlimited skips, Easy words, 3 rounds, and a random starting team.
 
 Only the actor should see the screen. Correct answers earn 1 point. Review and correct word outcomes after every turn before confirming scores. Timer sounds warn at 10 seconds, count down the final 5, and signal the end; sounds can be muted. Switching browser tabs pauses the game automatically.
 
-Categories are placeholders for now. There are 100 local prompts per difficulty. A browser refresh clears the active match; Play again keeps settings during the current session.
+Choose Easy or Challenging, with 250 prompts each in `src/games/charades/words.ts`. All 300 previous prompts are retained alongside 200 new physical-comedy and facial-expression prompts. Easy includes the former Easy bank and the easier half of Medium; Challenging includes the remaining Medium and former Hard. Category filtering is still a future feature. See `src/games/charades/WORD_BANK_NOTES.md` for research links and selection notes. A browser refresh clears the active match; Play again keeps settings during the current session.
 
 React Router uses hash URLs (for example, `/#/charades/rules`), so Vercel needs no additional route rewrites. Build command: `npm run build`; output directory: `dist`.
 
