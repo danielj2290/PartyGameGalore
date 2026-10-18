@@ -1,3 +1,4 @@
+import { Icon } from '../../components/Icon/Icon';
 import { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useCharades } from './CharadesContext';
@@ -23,12 +24,12 @@ export function CharadesLayout() {
     <header className={styles.header}>
       <Link className={styles.brand} to="/" onClick={event => {
         if (inGame && match && match.phase !== 'finished') { event.preventDefault(); dispatch({ type: 'PAUSE', now: performance.now() }); setExit(true); }
-      }}><span aria-hidden="true">✳</span> PGG.</Link>
+      }}><span aria-hidden="true"><Icon name="burst" /></span> PGG.</Link>
       <span className={styles.headerGame}>CHARADES <span>· LOCAL PARTY GAME</span></span>
-      {inGame && match?.phase !== 'finished' ? <button className={styles.textButton} onClick={() => { dispatch({ type: 'PAUSE', now: performance.now() }); setExit(true); }}>Exit game</button> : <Link className={styles.textLink} to="/">Back to home ↗</Link>}
+      {inGame && match?.phase !== 'finished' ? <button className={styles.textButton} onClick={() => { dispatch({ type: 'PAUSE', now: performance.now() }); setExit(true); }}>Exit game</button> : <Link className={styles.textLink} to="/">Back to home <Icon name="arrowUpRight" /></Link>}
     </header>
     <main ref={content} className={styles.main}><Outlet /></main>
-    <footer className={styles.footer}>GOOD COMPANY. GREAT GUESSES. <span aria-hidden="true">✦</span></footer>
+    <footer className={styles.footer}>GOOD COMPANY. GREAT GUESSES. <span aria-hidden="true"><Icon name="sparkle" /></span></footer>
     {exit && <Dialog title="Leave this game?" onCancel={() => setExit(false)}><p>Your current match will be cleared. Your settings will stay for the next game.</p><div className={styles.actions}><button className={styles.secondary} onClick={() => setExit(false)}>Stay here</button><button className={styles.primary} onClick={leave}>Exit home</button></div></Dialog>}
   </div>;
 }

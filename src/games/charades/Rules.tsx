@@ -1,3 +1,4 @@
+import { Icon } from '../../components/Icon/Icon';
 import { Link } from 'react-router-dom';
 import styles from './Charades.module.css';
 
@@ -16,6 +17,6 @@ export function Rules() {
     <h1 tabIndex={-1}>Big gestures.<br /><em>Bigger laughs.</em></h1>
     <p className={styles.lede}>Two teams. One actor. Guess before time runs out.</p>
     <div className={styles.rulesGrid}>{rules.map(([title, text], index) => <article className={styles.rule} key={title}><span className={styles.ruleNumber}>0{index + 1}</span><div><h2>{title}</h2><p>{text}</p></div></article>)}</div>
-    <div className={styles.actions}><Link className={styles.secondary} to="/">Back to home</Link><Link className={styles.primary} to="/charades/settings">Next: Settings <span aria-hidden="true">↗</span></Link></div>
+    <div className={styles.actions}><Link className={styles.secondary} to="/">Back to home</Link><Link className={styles.primary} to="/charades/settings">Next: Settings <span aria-hidden="true"><Icon name="arrowUpRight" /></span></Link></div>
   </section>;
 }

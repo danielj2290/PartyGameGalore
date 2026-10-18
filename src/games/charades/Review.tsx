@@ -1,3 +1,4 @@
+import { Icon } from '../../components/Icon/Icon';
 import { useCharades } from './CharadesContext';
 import { Dialog } from './Dialog';
 import { activeTeam, roundNumber, score } from './engine';
@@ -16,6 +17,6 @@ export function Review({ match }: { match: Match }) {
       </select></label>
     </li>)}</ol>
     <p className={styles.hint}>Scores are locked after confirmation.</p>
-    <button className={styles.primary} onClick={() => dispatch({ type: 'CONFIRM' })}>{finalTurn ? 'See results' : match.completed.length % 2 === 1 ? 'Confirm & next round' : 'Confirm & next team'} <span aria-hidden="true">↗</span></button>
+    <button className={styles.primary} onClick={() => dispatch({ type: 'CONFIRM' })}>{finalTurn ? 'See results' : match.completed.length % 2 === 1 ? 'Confirm & next round' : 'Confirm & next team'} <span aria-hidden="true"><Icon name="arrowUpRight" /></span></button>
   </Dialog>;
 }

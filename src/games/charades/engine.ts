@@ -1,3 +1,5 @@
+import { shuffle } from '../shared/utils';
+export { shuffle, cueBetween } from '../shared/utils';
 import { words } from './words';
 import type { Difficulty, Word } from './words';
 
@@ -18,14 +20,6 @@ export type Action =
   | { type: 'CORRECT'; index: number; outcome: Outcome }
   | { type: 'RESET' | 'CONFIRM' };
 
-export function shuffle<T>(items: readonly T[], random = Math.random): T[] {
-  const result = [...items];
-  for (let i = result.length - 1; i > 0; i--) {
-    const j = Math.floor(random() * (i + 1));
-    [result[i], result[j]] = [result[j], result[i]];
-  }
-  return result;
-}
 
 export function createMatch(settings: Settings, random = Math.random): Match {
   return { settings: { ...settings }, startingTeam: settings.startingTeam === 'random' ? (random() < .5 ? 1 : 2) : settings.startingTeam,
@@ -92,12 +86,4 @@ export function reduceMatch(match: Match, action: Action): Match {
         remainingMs: match.settings.seconds * 1000, deadline: null };
     }
   }
-}
-
-// Only one cue is emitted for a delayed tick; avoid a burst of overdue tones.
-export function cueBetween(previous: number, current: number): 'warning' | 'countdown' | 'end' | null {
-  if (current === 0 && previous > 0) return 'end';
-  if (current >= 1 && current <= 5 && previous > current) return 'countdown';
-  if (previous > 10 && current <= 10 && current > 5) return 'warning';
-  return null;
 }

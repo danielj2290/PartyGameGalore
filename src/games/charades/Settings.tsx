@@ -1,3 +1,4 @@
+import { Icon } from '../../components/Icon/Icon';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCharades } from './CharadesContext';
 import type { Difficulty } from './words';
@@ -20,7 +21,7 @@ export function Settings() {
         <label className={styles.field}>Starting team<select value={settings.startingTeam} onChange={event => setSettings({ ...settings, startingTeam: event.target.value === 'random' ? 'random' : Number(event.target.value) as Team })}><option value="random">Random · let fate decide</option><option value="1">Team 1 · pink</option><option value="2">Team 2 · blue</option></select><span>The same team opens each round.</span></label>
       </div>
       <p className={styles.settingsSummary}>{settings.rounds * 2} turns total · {settings.seconds} seconds per turn · two teams</p>
-      <div className={styles.actions}><Link className={styles.secondary} to="/charades/rules">Back: Rules</Link><button className={styles.primary} type="submit">Start game <span aria-hidden="true">↗</span></button></div>
+      <div className={styles.actions}><Link className={styles.secondary} to="/charades/rules">Back: Rules</Link><button className={styles.primary} type="submit">Start game <span aria-hidden="true"><Icon name="arrowUpRight" /></span></button></div>
     </form>
   </section>;
 }

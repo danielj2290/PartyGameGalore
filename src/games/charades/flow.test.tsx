@@ -96,7 +96,7 @@ describe('Charades screens', () => {
     await user.click(screen.getByRole('button', { name: 'Exit game' }));
     await user.click(screen.getByRole('button', { name: 'Exit home' }));
     expect(screen.getByRole('button', { name: 'Play Charades' })).toBeTruthy();
-    expect((screen.getByRole('button', { name: 'Play Something to talk about' }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole('button', { name: 'Play A little friendly rivalry' }) as HTMLButtonElement).disabled).toBe(true);
   });
 
   it('pauses when hidden, resumes explicitly, mutes audio, and resets only the active turn', async () => {

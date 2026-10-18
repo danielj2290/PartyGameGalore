@@ -1,0 +1,9 @@
+.icon{display:inline-block;position:relative;width:1em;height:1em;flex-shrink:0;vertical-align:-.12em;pointer-events:none;color:inherit}
+.sparkle{background:currentColor;clip-path:polygon(50% 0,62% 38%,100% 50%,62% 62%,50% 100%,38% 62%,0 50%,38% 38%)}
+.burst::before,.burst::after{content:'';position:absolute;inset:0;background:linear-gradient(currentColor,currentColor) center/2px 100% no-repeat,linear-gradient(currentColor,currentColor) center/100% 2px no-repeat}.burst::after{transform:rotate(45deg)}
+.arrow{transform:rotate(var(--icon-angle,0deg))}.arrow::before{content:'';position:absolute;left:12%;top:calc(50% - 1px);width:76%;height:2px;background:currentColor;border-radius:2px}.arrow::after{content:'';position:absolute;right:12%;top:30%;width:40%;height:40%;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg)}
+.arrowRight{--icon-angle:0deg}.arrowUpRight{--icon-angle:-45deg}.arrowDownRight{--icon-angle:45deg}.arrowUp{--icon-angle:-90deg}.arrowDown{--icon-angle:90deg}
+.pause::before,.pause::after{content:'';position:absolute;top:10%;height:80%;width:23%;background:currentColor;border-radius:1px}.pause::before{left:17%}.pause::after{right:17%}
+.play{background:currentColor;clip-path:polygon(20% 5%,95% 50%,20% 95%)}
+.check::after{content:'';position:absolute;width:72%;height:38%;left:15%;top:21%;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(-45deg)}
+.rotate{border:2px solid currentColor;border-right-color:transparent;border-radius:50%;width:.85em;height:.85em;margin:.075em;transform:rotate(-20deg)}.rotate::after{content:'';position:absolute;right:-.13em;top:-.13em;width:.42em;height:.42em;background:currentColor;clip-path:polygon(0 0,100% 100%,0 100%)}

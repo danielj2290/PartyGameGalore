@@ -2,6 +2,12 @@ export type Difficulty = 'easy' | 'medium' | 'hard';
 export type Category = 'everyday' | 'animals' | 'actions' | 'entertainment';
 export interface Word { id: string; text: string; difficulty: Difficulty; category: Category }
 
+// Medium/Hard favor 1-3 word prompts with clear physical clues.
+// Inspiration: https://www.thegamegal.com/printables/
+// https://parade.com/living/charades-ideas
+// https://www.playcharades.app/blog/charades-ideas
+// https://www.reddit.com/r/boardgames/comments/1tuuanr/high_quality_charades_ideas/
+// Reddit discussions informed selection, not a verbatim or ranked word list.
 // Categories are metadata for now. Category filtering will be a later milestone.
 const lists: Record<Difficulty, Record<Category, string>> = {
   easy: {
@@ -11,16 +17,16 @@ const lists: Record<Difficulty, Record<Category, string>> = {
     entertainment: 'Superhero|Robot|Pirate|Astronaut|Cowboy|Magician|Mermaid|Ballerina|Clown|Drummer|Singer|Juggler|Detective|Wizard|Knight|Princess|Dinosaur|Ghost|Vampire|Snowman',
   },
   medium: {
-    everyday: 'Vending machine|Revolving door|Escalator|Metal detector|Sleeping bag|Rocking chair|Roller skates|Lawn mower|Binoculars|Fire extinguisher|Vacuum cleaner|Typewriter|Seat belt|Fishing rod|Hammock|Jack-in-the-box|Snow globe|Wheelbarrow|Traffic light|Fortune cookie|Sticky tape|Bubble wrap|Paper airplane|Windshield wipers|Tripod|Wind chime|Beanbag chair|Folding table|Can opener|Pogo stick',
-    animals: 'Flamingo|Octopus|Peacock|Chameleon|Hedgehog|Sloth|Seal|Crab|Gorilla|Ostrich|Woodpecker|Jellyfish|Meerkat|Seahorse|Lobster|Pelican|Squirrel|Raccoon|Rhino|Bat',
-    actions: 'Walking through a spiderweb|Trying on tight jeans|Getting caught in the rain|Burning your tongue|Building a tent|Changing a flat tire|Carrying too many groceries|Trying to stay awake|Looking for lost keys|Walking on hot sand|Getting a haircut|Riding a roller coaster|Parallel parking|Making pizza dough|Catching a butterfly|Learning to ice skate|Giving a dog a bath|Untangling headphones|Carrying a sleeping baby|Walking against the wind|Trying to swat a fly|Wrapping a present|Serving afternoon tea|Making a pottery bowl|Playing air guitar|Walking a tightrope|Trying to open a stuck jar|Conducting an orchestra|Putting on sunscreen|Training a puppy',
-    entertainment: 'Circus ringmaster|Silent movie|Talent show|Puppet show|Treasure hunt|Haunted house|Slow motion replay|Stage fright|Movie director|Disco dancer|Sword fight|Magic carpet|Mad scientist|Secret agent|News reporter|Game show host|Opera singer|Tightrope walker|Marching band|Zombie',
+    everyday: "Vending machine|Revolving door|Escalator|Metal detector|Sleeping bag|Rocking chair|Roller skates|Lawn mower|Binoculars|Fire extinguisher|Vacuum cleaner|Typewriter|Seat belt|Fishing rod|Hammock|Jack-in-the-box|Snow globe|Wheelbarrow|Traffic light|Fortune cookie|Yo-yo|Bubble wrap|Paper airplane|Windshield wipers|Hula hoop|Wind chime|Trampoline|Toaster|Can opener|Pogo stick",
+    animals: "Flamingo|Octopus|Peacock|Chameleon|Hedgehog|Sloth|Seal|Crab|Gorilla|Ostrich|Woodpecker|Jellyfish|Meerkat|Seahorse|Lobster|Pelican|Squirrel|Raccoon|Rhino|Bat",
+    actions: "Rock climbing|Rainfall|Brain freeze|Camping|Changing tires|Grocery shopping|Sleepwalking|Lost keys|Hot coals|Haircut|Roller coaster|Parallel parking|Kneading dough|Butterfly catching|Ice skating|Dog grooming|Untangling cables|Babysitting|Tug-of-war|Fly swatting|Gift wrapping|Tea party|Pottery|Air guitar|Tightrope walking|Opening jars|Conducting|Applying sunscreen|Dog training|Surfing",
+    entertainment: "Circus ringmaster|Silent movie|Talent show|Puppet show|Treasure hunt|Haunted house|Slow motion|Stage fright|Movie director|Disco dancer|Sword fight|Magic carpet|Mad scientist|Secret agent|News reporter|Game show host|Opera singer|Jurassic Park|Ghostbusters|The Lion King",
   },
   hard: {
-    everyday: 'Newton’s cradle|Sundial|Hourglass|Periscope|Compass|Metronome|Lie detector|Record player|Spiral staircase|Invisible ink|Pendulum|Mechanical bull|Satellite dish|Automatic doors|Fountain pen|Wind turbine|Sewing machine|Printing press|Drawbridge|Weather vane|Telescope|Marionette|Rubber stamp|Accordion|Boomerang|Electric fence|Trapdoor|Water wheel|Security scanner|Butter churn',
-    animals: 'Praying mantis|Hermit crab|Komodo dragon|Armadillo|Platypus|Flying squirrel|Pufferfish|Leaf insect|Hummingbird|Dung beetle|Narwhal|Tarantula|Anglerfish|Mole|Albatross|Cuttlefish|Lemur|Anteater|Porcupine|Sea cucumber',
-    actions: 'Pretending to understand a joke|Trying to remember a dream|Walking in zero gravity|Defusing a ticking bomb|Escaping quicksand|Trying to look innocent|Hiding a surprise party|Rewinding a movie|Being trapped in an invisible box|Winning an imaginary argument|Smuggling snacks into a cinema|Trying to quietly eat chips|Teaching a robot to dance|Discovering a secret passage|Conducting an underwater orchestra|Walking through a hall of mirrors|Being hypnotized|Inventing a new dance move|Dodging invisible lasers|Trying to fold a fitted sheet|Catching your own reflection|Sneaking past a sleeping dragon|Juggling imaginary bowling balls|Realizing you forgot your lines|Trying to blend into a crowd|Being pulled by an invisible magnet|Building a house of cards|Balancing plates on sticks|Trying to catch falling stars|Leading a silent protest',
-    entertainment: 'Time travel|Body swap|Plot twist|Cliffhanger|Standing ovation|Film noir detective|Ventriloquist|Stunt double|Escapologist|One-person band|Human statue|Mimed tug of war|Backstage chaos|Orchestra conductor|A dramatic monologue|An unreliable narrator|Opening night|Stop-motion animation|An invisible audience|The grand finale',
+    everyday: "Jackhammer|Sundial|Hourglass|Periscope|Compass|Metronome|Lie detector|Record player|Spiral staircase|Invisible ink|Pendulum|Mechanical bull|Satellite dish|Turnstile|Fountain pen|Wind turbine|Sewing machine|Printing press|Drawbridge|Weather vane|Telescope|Marionette|Bathroom scale|Accordion|Boomerang|Electric fence|Trapdoor|Windmill|Drawstring|Mouse trap",
+    animals: "Praying mantis|Hermit crab|Komodo dragon|Armadillo|Platypus|Flying squirrel|Pufferfish|Stick insect|Hummingbird|Dung beetle|Narwhal|Tarantula|Anglerfish|Mole|Walrus|Scorpion|Lemur|Anteater|Porcupine|Manta ray",
+    actions: "Zero gravity|Defusing bombs|Quicksand|Pickpocketing|Hypnosis|Lock picking|Sleep paralysis|Folding fitted sheets|House of cards|Plate spinning|Fire breathing|Sword swallowing|Glassblowing|Synchronized swimming|Pole vaulting|Tightrope cycling|Bungee jumping|Moonwalking|Escape artistry|Lion taming|Flamenco|Auctioneering|Speed skating|Ice sculpting|Shearing sheep|Herding cats|Beekeeping|Falconry|Scuba diving|Stilt walking",
+    entertainment: "Time travel|Body swap|Stunt double|Ventriloquist|Human statue|Orchestra conductor|Puppet master|Werewolf|Medusa|Frankenstein|Sherlock Holmes|Charlie Chaplin|The Terminator|Indiana Jones|King Kong|The Matrix|Mission Impossible|The Nutcracker|Swan Lake|Dracula",
   },
 };
 
