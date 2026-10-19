@@ -1,17 +1,17 @@
-.page{position:relative;min-height:100svh;overflow:hidden;isolation:isolate;background:var(--background);display:flex;flex-direction:column}
+.page{--floor-height:52px;padding-bottom:var(--floor-height);position:relative;min-height:100svh;overflow:hidden;isolation:isolate;background:var(--background);display:flex;flex-direction:column}
 .header{position:relative;z-index:2;width:100%;max-width:1440px;margin:0 auto;height:50px;flex-shrink:0;padding:0 5%;display:flex;align-items:center;justify-content:space-between;gap:24px}
 .brand{font-size:23px;font-weight:700;text-decoration:none;letter-spacing:-1px}.brand>span:first-child{color:var(--pink);font-size:29px;vertical-align:middle;margin-right:8px}.brandDot{color:var(--pink)}
 .tag{font-size:8px;font-weight:700;letter-spacing:1.8px;border:1px solid #ffffff20;border-radius:30px;padding:9px 12px;display:flex;align-items:center;gap:8px}.tag i{width:5px;height:5px;border-radius:50%;background:var(--pink)}
-.page main{position:relative;z-index:1;width:100%;flex:1;display:flex;flex-direction:column;justify-content:center}
+.page main{position:relative;z-index:1;width:100%;flex:1 0 auto;padding-bottom:28px;display:flex;flex-direction:column;justify-content:center}
 .hero{position:relative;text-align:center;padding:0 20px 22px}.ballStage{height:130px;position:relative;max-width:520px;margin:0 auto 12px}
 .hero h1{font-family:var(--heading);font-weight:500;font-style:italic;font-size:clamp(52px,5vw,68px);letter-spacing:-3px;line-height:1.12;margin:0}.hero h1>span{display:inline-block;color:var(--pink);position:relative;width:fit-content;margin:auto}.titleStar{position:absolute;font:25px var(--body);color:var(--blue);right:-36px;top:12px}
-.footer{position:relative;z-index:1;text-align:center;padding:16px 20px 8px}.footer p{font-size:11px;color:var(--muted);line-height:1.7;margin:0}
-@media(min-width:900px) and (min-height:850px){.hero{padding-bottom:30px}.ballStage{margin-bottom:18px}.footer{padding-top:25px;padding-bottom:16px}}
-@media(max-width:899px){.page main{justify-content:flex-start}.hero{padding-bottom:32px}.hero h1{font-size:60px}.hero h1>span{display:block}.ballStage{height:150px}.header{height:54px}.footer{padding-top:26px}}
-@media(max-width:650px){.header{padding:0 6%}.tag{font-size:7px;letter-spacing:1px;padding:8px}.hero h1{font-size:clamp(48px,12vw,60px);letter-spacing:-2px}.titleStar{font-size:22px;right:-29px;top:13px}.ballStage{max-width:350px}.footer p{font-size:10px}}
+@media(min-width:900px) and (min-height:850px){.hero{padding-bottom:30px}.ballStage{margin-bottom:18px}}
+@media(max-width:899px){.page main{justify-content:flex-start}.hero{padding-bottom:32px}.hero h1{font-size:60px}.hero h1>span{display:block}.ballStage{height:150px}.header{height:54px}}
+@media(max-width:650px){.header{padding:0 6%}.tag{font-size:7px;letter-spacing:1px;padding:8px}.hero h1{font-size:clamp(48px,12vw,60px);letter-spacing:-2px}.titleStar{font-size:22px;right:-29px;top:13px}.ballStage{max-width:350px}}
 
 /* Expand the composition when both screen width and height allow it. */
 @media(min-width:1100px) and (min-height:850px){
+  .page{--floor-height:clamp(60px,6svh,95px)}
   .header{max-width:1900px;height:clamp(56px,5svh,80px);padding-inline:5%}
   .brand{font-size:clamp(25px,2svh,34px)}
   .brand>span:first-child{font-size:clamp(32px,2.7svh,44px)}
@@ -20,6 +20,4 @@
   .ballStage{height:var(--ball-size);max-width:clamp(520px,44vw,850px);margin-bottom:clamp(14px,1.6svh,24px)}
   .hero h1{font-size:clamp(70px,8svh,112px)}
   .titleStar{font-size:clamp(28px,3svh,40px);right:-48px;top:18px}
-  .footer{padding-top:clamp(18px,2svh,30px);padding-bottom:14px}
-  .footer p{font-size:clamp(12px,1.2svh,17px)}
 }
