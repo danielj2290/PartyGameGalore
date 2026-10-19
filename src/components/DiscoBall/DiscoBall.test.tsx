@@ -50,12 +50,15 @@ it.each([
   const { container, unmount } = render(<DiscoBall />);
   const chain = container.querySelector<HTMLElement>('[class*="chain"]')!;
   expect(chain.style.left).toBe(`${width / 2}px`);
-  expect(chain.style.height).toBe(`${top + 65}px`);
+  expect(chain.style.height).toBe(`${top / 2 + 65}px`);
+  const viewport = container.querySelector<HTMLElement>('[class*="viewport"]')!;
+  expect(viewport.style.transform).toBe(`translateY(-${top / 2}px)`);
 
   bounds = { left: 100, top: 90, width: 200, height: 200 };
   fireEvent.resize(window);
   expect(chain.style.left).toBe('200px');
-  expect(chain.style.height).toBe('190px');
+  expect(chain.style.height).toBe('145px');
+  expect(viewport.style.transform).toBe('translateY(-45px)');
 
   bounds = { ...bounds, top: -250 };
   fireEvent.scroll(window);

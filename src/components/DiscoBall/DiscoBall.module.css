@@ -9,6 +9,48 @@
   position: relative; width: var(--ball-size); height: 100%; margin: auto; pointer-events: none; }
 .chain { position: fixed; top: 0; left: 50%; width: 2px; height: 0; transform: translateX(-50%); z-index: 0; background: repeating-linear-gradient(180deg, var(--muted) 0 3px, transparent 3px 6px); }
 .viewport { position: absolute; bottom: 0; left: 0; width: var(--ball-size); height: var(--ball-size); z-index: 1; }
+.spotlights {
+  position: fixed;
+  left: 50%;
+  top: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+.beam {
+  --beam-color: var(--pink);
+  --from: -28deg;
+  --to: 8deg;
+  position: absolute;
+  top: 0;
+  left: -30vw;
+  width: clamp(160px, 25vw, 480px);
+  height: 100svh;
+  transform-origin: 50% 0;
+  clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--beam-color) 38%, transparent), color-mix(in srgb, var(--beam-color) 16%, transparent) 75%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 30% 70%, transparent);
+  mix-blend-mode: screen;
+  filter: blur(2px);
+  opacity: .65;
+  transform: skewX(var(--from));
+  animation: spotlightSweep 9s ease-in-out infinite alternate;
+  animation-play-state: inherit;
+}
+.beam:nth-child(2) { --beam-color: var(--periwinkle); --from: -8deg; --to: 28deg; left: 5vw; animation-delay: -5s; animation-duration: 11s; }
+.beam:nth-child(3) { --beam-color: var(--lavender); --from: -40deg; --to: -12deg; left: -20vw; animation-delay: -3s; animation-duration: 13s; }
+.beam:nth-child(4) { --beam-color: var(--pink); --from: 12deg; --to: 40deg; left: -5vw; animation-delay: -8s; animation-duration: 10s; }
+@keyframes spotlightSweep {
+  from { transform: skewX(var(--from)); opacity: .4; }
+  to { transform: skewX(var(--to)); opacity: .8; }
+}
+@media(max-width:650px) {
+  .beam { width: 40vw; left: -45vw; }
+  .beam:nth-child(2) { left: 5vw; }
+  .beam:nth-child(3) { left: -30vw; }
+  .beam:nth-child(4) { left: -10vw; }
+}
+@media(prefers-reduced-motion:reduce) { .beam { animation: none; opacity: .45; } }
 .fallback { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr); gap: 2px; overflow: hidden; border-radius: 50%; border: 2px solid var(--text); background: var(--bg); }
 .tile { background: var(--silver); }
 .tile:nth-child(3n) { background: var(--text); }

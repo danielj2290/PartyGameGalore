@@ -36,11 +36,18 @@ export function DiscoBall() {
     let disposed = false;
     const measure = () => {
       if (disposed || !viewport.current || !chain.current) return;
+      // Measure the original position so repeated resizes never accumulate lift.
+      viewport.current.style.transform = 'none';
       const bounds = viewport.current.getBoundingClientRect();
+      const lift = Math.max(0, bounds.top) / 2;
+      viewport.current.style.transform = `translateY(-${lift}px)`;
+      fixture.current?.style.setProperty('--ball-lift', `${lift}px`);
+      // Let the title and game grid follow the ball by the same distance.
+      fixture.current?.closest('main')?.style.setProperty('--disco-lift', `${lift}px`);
       chain.current.style.left = `${bounds.left + bounds.width / 2}px`;
       // Continue underneath the opaque ball. Its silhouette hides the excess,
       // so the visible chain meets the facets even with transparent canvas padding.
-      chain.current.style.height = `${Math.max(0, bounds.top + bounds.height / 2)}px`;
+      chain.current.style.height = `${Math.max(0, bounds.top - lift + bounds.height / 2)}px`;
     };
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
     for (const target of [viewport.current, fixture.current?.parentElement?.parentElement, document.body]) {
@@ -69,6 +76,10 @@ export function DiscoBall() {
     return () => { observer?.disconnect(); document.removeEventListener('visibilitychange', onVisibility); };
   }, []);
   return <div ref={fixture} className={styles.fixture} aria-hidden="true">
+    <div className={styles.spotlights} style={{ animationPlayState: onScreen && pageVisible && !reducedMotion ? 'running' : 'paused' }}>
+      <i className={styles.beam} /><i className={styles.beam} />
+      <i className={styles.beam} /><i className={styles.beam} />
+    </div>
     <div ref={chain} className={styles.chain} />
     <div ref={viewport} className={styles.viewport}>
       <SceneBoundary><Suspense fallback={<ChromeFallback />}>
