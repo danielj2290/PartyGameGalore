@@ -46,6 +46,10 @@ This local adaptation uses an original 80-pair deck in `src/games/wavelength/spe
 
 The target is removed from the rendered dial during handoff and guessing. Leaving an active stage or hiding the tab covers the private content and pauses any running clock; resume is explicit. Reset clears the current clue and guesses and requires a new target; confirmed scores remain. Results include the scoreboard and expandable clue history. Play again returns to settings; Exit home clears the match. Refreshing clears the match, as with the other games. Automated tests cover rules, scoring, privacy, timing, full games, replay, and routing; real-device visual and touch testing remains manual.
 
+## Rules-only games
+
+Chain Link, Imposter, and Liar's UNO have homepage cards and rules pages (`/#/chain-link/rules`, `/#/imposter/rules`, `/#/liars-uno/rules`). Gameplay isn't built yet; the Start game button is disabled and marked Coming soon. Each page lists the sources its rules summarize.
+
 ## Code map
 
 - `src/app/`: routes and homepage.

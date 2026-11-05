@@ -20,6 +20,9 @@ import { Rules as WavelengthRules } from '../games/wavelength/Rules';
 import { Settings as WavelengthSettings } from '../games/wavelength/Settings';
 import { Play as WavelengthPlay } from '../games/wavelength/Play';
 import { Results as WavelengthResults } from '../games/wavelength/Results';
+import { Rules as ChainLinkRules } from '../games/chain-link/Rules';
+import { Rules as ImposterRules } from '../games/imposter/Rules';
+import { Rules as LiarsUnoRules } from '../games/liars-uno/Rules';
 function RouteEffects() {
   const location = useLocation();
   useEffect(() => {
@@ -55,6 +58,12 @@ export default function App() {
       <Route path="play" element={<WavelengthPlay />} />
       <Route path="results" element={<WavelengthResults />} />
     </Route>
+    <Route path="/chain-link" element={<Navigate to="/chain-link/rules" replace />} />
+    <Route path="/chain-link/rules" element={<ChainLinkRules />} />
+    <Route path="/imposter" element={<Navigate to="/imposter/rules" replace />} />
+    <Route path="/imposter/rules" element={<ImposterRules />} />
+    <Route path="/liars-uno" element={<Navigate to="/liars-uno/rules" replace />} />
+    <Route path="/liars-uno/rules" element={<LiarsUnoRules />} />
     <Route path="*" element={<Navigate to="/" replace />} />
   </Routes></WavelengthProvider></HeadsUpProvider></CharadesProvider></HashRouter>;
 }
