@@ -7,7 +7,7 @@
   --periwinkle: #8FA6FF;
   --lavender: #C4B5E8;
   position: relative; width: var(--ball-size); height: 100%; margin: auto; pointer-events: none; }
-.chain { position: fixed; top: 0; left: 50%; width: 2px; height: 0; transform: translateX(-50%); z-index: 0; background: repeating-linear-gradient(180deg, var(--muted) 0 3px, transparent 3px 6px); }
+.chain { position: absolute; top: 0; left: 50%; width: 2px; height: 0; transform: translateX(-50%); z-index: 0; background: repeating-linear-gradient(180deg, var(--muted) 0 3px, transparent 3px 6px); }
 .viewport { position: absolute; bottom: 0; left: 0; width: var(--ball-size); height: var(--ball-size); z-index: 1; }
 .spotlights {
   position: fixed;
@@ -28,12 +28,12 @@
   height: 100svh;
   transform-origin: 50% 0;
   clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%);
-  background: linear-gradient(to bottom, color-mix(in srgb, var(--beam-color) 38%, transparent), color-mix(in srgb, var(--beam-color) 16%, transparent) 75%, transparent);
+  background: linear-gradient(to bottom, color-mix(in srgb, var(--beam-color) 42%, transparent), color-mix(in srgb, var(--beam-color) 18%, transparent) 75%, transparent);
   mask-image: linear-gradient(to right, transparent, #000 30% 70%, transparent);
-  mix-blend-mode: screen;
-  filter: blur(2px);
   opacity: .65;
   transform: skewX(var(--from));
+  /* Transform/opacity-only animation on its own layer stays on the compositor (no blend or blur repaints). */
+  will-change: transform, opacity;
   animation: spotlightSweep 9s ease-in-out infinite alternate;
   animation-play-state: inherit;
 }
@@ -50,7 +50,8 @@
   .beam:nth-child(3) { left: -30vw; }
   .beam:nth-child(4) { left: -10vw; }
 }
-@media(prefers-reduced-motion:reduce) { .beam { animation: none; opacity: .45; } }
+/* Phones get still beams: animating them across the screen is too heavy there. */
+@media (prefers-reduced-motion: reduce), (max-width: 700px), (pointer: coarse) { .beam { animation: none; opacity: .45; will-change: auto; } }
 .fallback { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr); gap: 2px; overflow: hidden; border-radius: 50%; border: 2px solid var(--text); background: var(--bg); }
 .tile { background: var(--silver); }
 .tile:nth-child(3n) { background: var(--text); }

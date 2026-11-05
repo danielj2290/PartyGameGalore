@@ -30,24 +30,29 @@ export function DiscoBall() {
   const [webGL, setWebGL] = useState(false);
   const [onScreen, setOnScreen] = useState(true);
   const [pageVisible, setPageVisible] = useState(() => !document.hidden);
+  const active = onScreen && pageVisible;
   const mobile = useMediaQuery('(max-width: 700px), (pointer: coarse)');
   const reducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)');
   useLayoutEffect(() => {
     let disposed = false;
     const measure = () => {
-      if (disposed || !viewport.current || !chain.current) return;
+      if (disposed || !viewport.current || !chain.current || !fixture.current) return;
       // Measure the original position so repeated resizes never accumulate lift.
       viewport.current.style.transform = 'none';
       const bounds = viewport.current.getBoundingClientRect();
-      const lift = Math.max(0, bounds.top) / 2;
+      const anchor = fixture.current.getBoundingClientRect();
+      // Page coordinates keep the result valid while scrolling, so no scroll listener is needed.
+      const pageTop = bounds.top + window.scrollY;
+      const lift = Math.max(0, pageTop) / 2;
       viewport.current.style.transform = `translateY(-${lift}px)`;
-      fixture.current?.style.setProperty('--ball-lift', `${lift}px`);
+      fixture.current.style.setProperty('--ball-lift', `${lift}px`);
       // Let the title and game grid follow the ball by the same distance.
-      fixture.current?.closest('main')?.style.setProperty('--disco-lift', `${lift}px`);
-      chain.current.style.left = `${bounds.left + bounds.width / 2}px`;
+      fixture.current.closest('main')?.style.setProperty('--disco-lift', `${lift}px`);
+      chain.current.style.left = `${bounds.left - anchor.left + bounds.width / 2}px`;
+      chain.current.style.top = `${-(anchor.top + window.scrollY)}px`;
       // Continue underneath the opaque ball. Its silhouette hides the excess,
       // so the visible chain meets the facets even with transparent canvas padding.
-      chain.current.style.height = `${Math.max(0, bounds.top - lift + bounds.height / 2)}px`;
+      chain.current.style.height = `${Math.max(0, pageTop - lift + bounds.height / 2)}px`;
     };
     const observer = typeof ResizeObserver === 'undefined' ? null : new ResizeObserver(measure);
     for (const target of [viewport.current, fixture.current?.parentElement?.parentElement, document.body]) {
@@ -55,13 +60,11 @@ export function DiscoBall() {
     }
     measure();
     window.addEventListener('resize', measure);
-    window.addEventListener('scroll', measure, { passive: true });
     void document.fonts?.ready.then(measure);
     return () => {
       disposed = true;
       observer?.disconnect();
       window.removeEventListener('resize', measure);
-      window.removeEventListener('scroll', measure);
     };
   }, []);
   useEffect(() => {
@@ -76,14 +79,14 @@ export function DiscoBall() {
     return () => { observer?.disconnect(); document.removeEventListener('visibilitychange', onVisibility); };
   }, []);
   return <div ref={fixture} className={styles.fixture} aria-hidden="true">
-    <div className={styles.spotlights} style={{ animationPlayState: onScreen && pageVisible && !reducedMotion ? 'running' : 'paused' }}>
+    <div className={styles.spotlights} style={{ animationPlayState: active && !reducedMotion ? 'running' : 'paused' }}>
       <i className={styles.beam} /><i className={styles.beam} />
       <i className={styles.beam} /><i className={styles.beam} />
     </div>
     <div ref={chain} className={styles.chain} />
     <div ref={viewport} className={styles.viewport}>
       <SceneBoundary><Suspense fallback={<ChromeFallback />}>
-        {webGL ? <DiscoBallScene mobile={mobile} reducedMotion={reducedMotion} active={onScreen && pageVisible} /> : <ChromeFallback />}
+        {webGL ? <DiscoBallScene mobile={mobile} reducedMotion={reducedMotion} active={active} /> : <ChromeFallback />}
       </Suspense></SceneBoundary>
     </div>
   </div>;

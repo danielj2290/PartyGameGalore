@@ -40,28 +40,29 @@ it('forwards mobile/reduced-motion preferences live and suspends rendering when 
 });
 
 it.each([
-  { device: 'desktop', width: 1200, left: 535, top: 180 },
-  { device: 'mobile', width: 375, left: 122.5, top: 74 },
-])('anchors the chain to the ball on $device and updates it on resize/scroll', ({ width, left, top }) => {
+  { device: 'desktop', left: 535, top: 180 },
+  { device: 'mobile', left: 122.5, top: 74 },
+])('anchors the chain to the ball on $device in page coordinates and updates it on resize', ({ left, top }) => {
   vi.stubGlobal('WebGL2RenderingContext', undefined);
-  vi.stubGlobal('innerWidth', width);
   let bounds = { left, top, width: 130, height: 130 };
   vi.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(() => bounds as DOMRect);
   const { container, unmount } = render(<DiscoBall />);
   const chain = container.querySelector<HTMLElement>('[class*="chain"]')!;
-  expect(chain.style.left).toBe(`${width / 2}px`);
+  expect(chain.style.left).toBe('65px');
+  expect(chain.style.top).toBe(`${-top}px`);
   expect(chain.style.height).toBe(`${top / 2 + 65}px`);
   const viewport = container.querySelector<HTMLElement>('[class*="viewport"]')!;
   expect(viewport.style.transform).toBe(`translateY(-${top / 2}px)`);
 
   bounds = { left: 100, top: 90, width: 200, height: 200 };
   fireEvent.resize(window);
-  expect(chain.style.left).toBe('200px');
+  expect(chain.style.left).toBe('100px');
   expect(chain.style.height).toBe('145px');
   expect(viewport.style.transform).toBe('translateY(-45px)');
 
+  // Scrolling does no layout work; page coordinates already account for it.
   bounds = { ...bounds, top: -250 };
   fireEvent.scroll(window);
-  expect(chain.style.height).toBe('0px');
+  expect(chain.style.height).toBe('145px');
   unmount();
 });

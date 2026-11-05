@@ -15,3 +15,6 @@
 
 .content button:enabled{cursor:pointer;transition:transform .2s}
 .content button:enabled:hover{transform:translateY(-2px)}
+
+@media(max-width:650px){.art{aspect-ratio:2}}
+@media(max-width:650px) and (max-height:760px){.art{aspect-ratio:2.7}.content{padding-top:12px}.content h3{font-size:24px;margin:8px 0 4px}.description{margin-bottom:12px}.content button{min-height:40px}.status{margin:6px 0 2px}}

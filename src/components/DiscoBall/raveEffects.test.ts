@@ -96,10 +96,9 @@ describe('rave animation', () => {
     expect(paint).toHaveBeenCalledTimes(1);
   });
 
-  it('reduces four orbiting desktop lights to two on mobile', () => {
-    expect(lightPositions(false)).toHaveLength(4);
-    expect(lightPositions(true)).toHaveLength(2);
-    for (const [x, y, z] of [...lightPositions(false), ...lightPositions(true)]) {
+  it('orbits two lights on every device', () => {
+    expect(lightPositions()).toHaveLength(2);
+    for (const [x, y, z] of lightPositions()) {
       expect(Math.hypot(x, z)).toBeCloseTo(2.7);
       expect(Number.isFinite(y)).toBe(true);
     }

@@ -1,12 +1,15 @@
-import { useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
 import { Color, DynamicDrawUsage, Vector3 } from 'three';
 import type { Group, InstancedMesh } from 'three';
+import { createFramePacer } from '../framePacer';
 import { cssColor } from './palette';
 import { ChromeFallback } from './ChromeFallback';
 import { createMirrorTiles, DESKTOP_TILE_ROWS, MOBILE_TILE_ROWS } from './mirrorTiles';
 import { createTileColors, lightPositions, lightTokens, RaveAnimation, tintTokens } from './raveEffects';
+
+const FRAMES_PER_SECOND = 30;
 
 export interface SceneProps { mobile: boolean; reducedMotion: boolean; active: boolean }
 interface MirrorColors { bg: string; silver: Color; white: Color; accents: Color[]; lights: string[] }
@@ -20,7 +23,7 @@ function RaveBall({ mobile, reducedMotion, active, colors }: SceneProps & { colo
   const tiles = useMemo(() => createMirrorTiles(mobile ? MOBILE_TILE_ROWS : DESKTOP_TILE_ROWS), [mobile]);
   const baseColors = useMemo(() => createTileColors(tiles.length, colors.silver, colors.accents), [tiles, colors]);
   const animation = useMemo(() => new RaveAnimation(baseColors), [baseColors]);
-  const positions = useMemo(() => lightPositions(mobile), [mobile]);
+  const positions = useMemo(() => lightPositions(), []);
 
   useLayoutEffect(() => {
     const mesh = mirrors.current;
@@ -45,6 +48,19 @@ function RaveBall({ mobile, reducedMotion, active, colors }: SceneProps & { colo
     }
     invalidate();
   }, [active, reducedMotion, animation, invalidate]);
+
+  // The canvas only renders on demand, so this loop sets the ball's frame rate.
+  useEffect(() => {
+    if (!active || reducedMotion) return;
+    const due = createFramePacer(FRAMES_PER_SECOND);
+    let frame = 0;
+    const tick = (time: number) => {
+      frame = requestAnimationFrame(tick);
+      if (due(time)) invalidate();
+    };
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [active, reducedMotion, invalidate]);
 
   useFrame((_, delta) => {
     const mesh = mirrors.current;
@@ -73,7 +89,7 @@ function RaveBall({ mobile, reducedMotion, active, colors }: SceneProps & { colo
     </group>
     <group ref={lights}>
       {positions.map((position, index) => <pointLight key={lightTokens[index]} position={position}
-        color={colors.lights[index]} intensity={mobile ? 14 : 12} decay={2} />)}
+        color={colors.lights[index]} intensity={14} decay={2} />)}
     </group>
   </>;
 }
@@ -88,8 +104,8 @@ export default function DiscoBallScene(props: SceneProps) {
   if (contextLost) return <ChromeFallback />;
   return <Canvas
     camera={{ position: [0, 0, 3.5], fov: 34, near: 0.1, far: 20 }}
-    dpr={[1, 2]}
-    frameloop={props.reducedMotion || !props.active ? 'demand' : 'always'}
+    dpr={[1, 1.5]}
+    frameloop="demand"
     gl={{ alpha: true, antialias: true, powerPreference: props.mobile ? 'low-power' : 'high-performance' }}
     fallback={<ChromeFallback />}
     onCreated={({ gl }) => {

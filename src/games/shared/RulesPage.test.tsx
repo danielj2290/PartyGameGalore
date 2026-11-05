@@ -15,6 +15,8 @@ describe('rules-only games', () => {
   ])('Play %s opens its rules page with gameplay marked coming soon', async (title, path, marker) => {
     const user = userEvent.setup();
     render(<App />);
+    // Three cards are visible at a time; flip forward until this game is on screen.
+    while (!screen.queryByRole('button', { name: `Play ${title}` })) await user.click(screen.getByRole('button', { name: 'Next games' }));
     await user.click(screen.getByRole('button', { name: `Play ${title}` }));
     expect(window.location.hash).toBe(`#${path}`);
     expect(screen.getByRole('heading', { level: 1 }).textContent).toContain(title);

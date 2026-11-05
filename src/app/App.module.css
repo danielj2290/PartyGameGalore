@@ -22,3 +22,7 @@
   .hero h1{font-size:clamp(70px,8svh,112px)}
   .titleStar{font-size:clamp(28px,3svh,40px);right:-48px;top:18px}
 }
+
+/* Phones: keep the hero compact so the game carousel fits without scrolling. */
+@media(max-width:650px){.page{--ball-size:110px}.ballStage{height:120px;margin-bottom:8px}.hero{padding-bottom:20px}}
+@media(max-width:650px) and (max-height:760px){.page{--ball-size:80px}.header{height:48px}.ballStage{height:82px;margin-bottom:4px}.hero{padding-bottom:12px}.hero h1{font-size:40px;letter-spacing:-1.5px}.titleStar{font-size:18px;right:-22px;top:9px}.page main{padding-bottom:16px}}

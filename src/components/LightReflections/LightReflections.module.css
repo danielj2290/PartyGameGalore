@@ -7,7 +7,7 @@
   mask-image:radial-gradient(ellipse at 50% 40%,#000 15%,#000a 58%,transparent 95%);
 }
 
-/* One moving pattern keeps hundreds of reflections out of the DOM. */
+/* One static pattern keeps hundreds of reflections out of the DOM. */
 .dots{
   position:absolute;
   width:160vmax;
@@ -25,10 +25,4 @@
   background-size:127px 149px,211px 193px,173px 229px,293px 257px,101px 167px;
   background-position:23px 17px,103px 71px,59px 137px,149px 43px,37px 91px;
   transform:translate(-50%,-50%);
-  animation:sweep var(--reflection-speed) linear infinite;
-}
-
-@keyframes sweep{
-  from{transform:translate(-50%,-50%) rotate(0deg)}
-  to{transform:translate(-50%,-50%) rotate(360deg)}
 }

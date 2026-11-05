@@ -3,7 +3,7 @@ import { ROTATION_SECONDS } from './mirrorTiles';
 
 export const GLINT_SECONDS = 0.15;
 export const LIGHT_ORBIT_SECONDS = 48;
-export const lightTokens = ['pink', 'periwinkle', 'lavender', 'silver'] as const;
+export const lightTokens = ['pink', 'periwinkle'] as const;
 export const tintTokens = ['pink', 'periwinkle', 'lavender'] as const;
 const brightWhite = new Color(5, 5, 5);
 
@@ -19,8 +19,9 @@ export function createTileColors(count: number, silver: Color, accents: readonly
   return colors;
 }
 
-export function lightPositions(mobile: boolean): [number, number, number][] {
-  const count = mobile ? 2 : 4;
+// Two orbiting lights everywhere: each point light is evaluated for every lit pixel.
+export function lightPositions(): [number, number, number][] {
+  const count = lightTokens.length;
   return Array.from({ length: count }, (_, index) => {
     const angle = 0.4 + index * Math.PI * 2 / count;
     return [Math.cos(angle) * 2.7, 0.5 + Math.sin(angle * 1.5) * 1.1, Math.sin(angle) * 2.7];
